@@ -1,0 +1,44 @@
+* add marker on click
+** Key Resources
+*** [[https://developers.google.com/maps/documentation/javascript/reference/map#MouseEvent][key event for getting latLng from Click]]
+*** [[https://developers.google.com/maps/documentation/javascript/reference/map#MouseEvent][maps event system]]
+ - We can listen for click events with the maps event system, and add a marker using the latLng property from the MouseEvent passed to the assigned handler by the click event.
+ - this handler can then add a new marker at that latLng.
+* Current
+
+** to run the current app
+*** register an api key [[https://console.cloud.google.com/google/maps-apis][here]]
+*** copy config-template.json to config.json and add your api key
+*** npm run local(uses nodemon)
+** Currently uses ejs to add the api key to the template. This is passed through to the client so its not technically private
+
+* to run the current app
+** register an api key [[https://console.cloud.google.com/google/maps-apis][here]]
+** copy config-template.json to config.json and add your api key
+** npm run local(uses nodemon)
+* Currently uses ejs to add the api key to the template.
+
+* Stories
+** As a user
+*** Goal: I want to share a place/places with other people, 
+*** motivations:
+**** we want to meet up
+**** I think it's a cool place
+*** Goal: I want to get the address of a place
+*** because:
+**** I want to go there(with my friends)
+**** I want to easily share this address
+*** goal: I want to save a map that I create 
+*** because: I want to reference it later
+*** goal I want to 
+
+** REQUIREMENTS **
+- users can see a list of the available maps
+- users can view a map
+- a map can contain many points
+- each point can have: a title, description, and image
+- authenticated users can create maps
+- authenticated users can modify maps (add, edit, remove points)
+- users can favourite a map
+- users have profiles, indicating their favourite maps and maps they've contributed to
+- use http://leafletjs.com/ or https://developers.google.com/maps/
