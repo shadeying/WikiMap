@@ -10,6 +10,7 @@ exports.seed = function(knex, Promise) {
           editorid: 'alice',
           lat: 55.647,
           lng: 37.581,
+          description: 'this is point a1'
         },
         {
           mapid: '1',
@@ -17,6 +18,7 @@ exports.seed = function(knex, Promise) {
           editorid: 'charlie',
           lat: 55.647,
           lng: 37.585,
+          description: 'this is point a2',
         },
         {
           mapid: '2',
@@ -24,6 +26,7 @@ exports.seed = function(knex, Promise) {
           editorid: 'bob',
           lat: 55.124,
           lng: 37.281,
+          description: 'this is point b',
         },
         {
           mapid: '3',
@@ -31,6 +34,7 @@ exports.seed = function(knex, Promise) {
           editorid: 'charlie',
           lat: 57.647,
           lng: 37.345,
+          description: 'this is point c',
         }
       ])
     });
