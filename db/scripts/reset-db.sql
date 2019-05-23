@@ -1,0 +1,1 @@
+DROP owned BY labber;
