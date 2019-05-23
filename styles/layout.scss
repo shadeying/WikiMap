@@ -1,17 +1,83 @@
-body {
-  background-color: #EEE;
+$coralblack: #5D576B;
+$palepink: #F1DEDE;
+$parrotpink: #D496A7;
+$mayablue: #6CD4FF;
+$tulip: #FE938C;
 
-  h1 {
-    color: #244751;
-  }
+%article {
+  margin: 10px;
+  border: solid 5px $coralblack;
+  border-radius: 10px;
+  flex-grow: 1;
+  width: 35vw;
 }
 
-#map {
-        height: 100%;
+%header {
+  height: 50px;
+  background-color: $coralblack;
+  color: $palepink;
+  font-size: 200%;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Averia Sans Libre', cursive;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: $palepink;
+  margin-top: 100px;
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-start;
+
+  div#map {
+    border: solid 10px $coralblack;
+    border-radius: 10px;
+    margin: 10px;
+    height: -webkit-fill-available;
+    width: 60%;
+  }
+
+  div.info {
+    font-weight: bold;
+    color: $coralblack;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: -webkit-fill-available;
+    text-align: center;
+
+    article.map-title {
+      margin: 10px;
+      border-radius: 10px;
+      font-size: 250%;
+      background-color: $mayablue;
+      color: $coralblack;
+    }
+
+    article.description {
+      @extend %article;
+
+      header {
+        @extend %header;
       }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+
+      p {
+        padding-left: 10px;
       }
+    }
+
+    article.pointlist {
+      @extend %article;
+
+      header {
+        @extend %header;
+      }
+    }
+  }
+}
