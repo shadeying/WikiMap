@@ -4,9 +4,12 @@ exports.up = function(knex, Promise) {
     table.increments().unique().primary();
     table.string('title').notNull();
     table.string('image');
-    table.integer('mapid')
+    table.float('lat').notNull();
+    table.float('lng').notNull();
+    table.string('editorid').notNull();
+    table.string('mapid')
       .notNull()
-      .references('maps.id')
+      .references('maps.mapid')
       .onDelete('CASCADE');
   })
 };

@@ -1,9 +1,9 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('maps', (table) => {
-    table.increments('id');
-    table.integer('ownerid');
-    table.string('name');
+    table.string('mapid').unique();
+    table.string('ownerid').unique();
+    table.string('name').notNull();
   })
 };
 
