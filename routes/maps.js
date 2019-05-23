@@ -29,7 +29,6 @@ module.exports = (knex) => {
       .insert({
         name: 'd',
         ownerid: 'dorothy',
-        mapid: 4,
       })
       .then(() => {
         console.log('settings status')
