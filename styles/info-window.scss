@@ -1,0 +1,15 @@
+div.info-window {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  h1 {
+    font-weight: bold;
+  }
+
+}
+
+// <div class="info-window">
+        // <h1>Title</h1>
+        // <p>hello world<p>
+        // <img src='www.google.com'>
