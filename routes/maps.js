@@ -6,11 +6,13 @@ module.exports = (knex) => {
 
 
   router.get("/:mapid", (req, res) => {
-    console.log('get mapid');
+    console.log('get map and points');
     knex
       .select()
-      .from("maps")
-      .where('mapid', req.params.mapid)
+      .from("points")
+        .join('maps', { 'points.mapid': 'points.mapid' })
+      .where('maps.mapid', req.params.mapid)
+      .groupBy('maps.mapid')
       .then((results) => {
         res.json(results);
     });
