@@ -129,64 +129,32 @@ function initMap() {
         map.mapTypes.set('styled_map', styledMapType);
         map.setMapTypeId('styled_map');
 
-        function addMarker(position, title) {
+        function addMarker(position) {
           const marker = new google.maps.Marker({
-            "position": position,
-            "map": map,
-            "title": title
+            position, title: 'hello marker!',
           });
-          console.log("adding marker")
+          marker.setMap(map);
           return marker;
-        }
-
-        function createContentString(object) {
-          console.log("creating string")
-          const title = $("<h1>").text(object.title);
-          const description = $("<p>").text(object.description);
-          const image = $(`<img src=${object.image}>`);
-          console.log($("<div>").addClass("info-window").append(title, description, image).html())
-          return $("<div>").addClass("info-window").append(title, description, image).html();
         }
 
         function addInfoWindow(contentString) {
           const infowindow = new google.maps.InfoWindow({
             content: contentString
           });
-          console.log("adding info")
           return infowindow;
         }
 
-        function renderPoints(pointsArray){
-          pointsArray.forEach(function(pointObject){
-            const latitude = pointObject.lat;
-            const longitude = pointObject.lng;
-            const position = {lat: latitude, lng: longitude};
-            const title = pointObject.title;
-            const marker = addMarker(position, title);
-            const infowindow = addInfoWindow(createContentString(pointObject));
-            marker.addListener('click', function() {
-              infowindow.open(map, marker);
-            });
-          });
-        }
+        map.addListener('click', function(event){
+          const latitude = event.latLng.lat();
+          const longitude = event.latLng.lng();
+          const position = {lat: latitude, lng: longitude};
 
-        const mapObject = {
-          "favorites": {},
-          "points": [{
-            "lat": -25.363882,
-            "lng": 131.044922,
-            "title": "lol",
-            "description": "helloooooo",
-            "image":"https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
-          },
-          {
-            "lat": -25,
-            "lng": 131.1,
-            "title": "hi",
-            "description": "oyooooooo",
-            "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
-          }]
-        };
-        renderPoints(mapObject.points);
+          const marker = addMarker(position);
+          const infowindow = addInfoWindow('Hello WikiMap :|');
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        })
 
 }
+

@@ -18,6 +18,11 @@ module.exports = (knex) => {
     });
   });
 
+  router.get("/:mapid/edit", (req,res) => {
+    console.log('Editing map!');
+
+  });
+
   router.get('/', (req, res) => {
     knex('maps')
     .select()
