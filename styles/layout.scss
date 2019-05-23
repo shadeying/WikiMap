@@ -19,6 +19,15 @@ $tulip: #FE938C;
   font-size: 200%;
 }
 
+%point {
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 140%;
+  background-color: $parrotpink;
+  color: $palepink;
+}
+
 html {
   box-sizing: border-box;
   font-family: 'Averia Sans Libre', cursive;
@@ -70,6 +79,7 @@ body {
 
       p {
         padding-left: 10px;
+        font-size: 140%;
       }
     }
 
@@ -78,6 +88,15 @@ body {
 
       header {
         @extend %header;
+      }
+
+      div.locations {
+        display: flex;
+        flex-direction: column;
+
+        div.point {
+          @extend %point;
+        }
       }
     }
   }

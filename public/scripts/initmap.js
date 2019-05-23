@@ -130,10 +130,22 @@ function initMap() {
           const marker = new google.maps.Marker({
             position, title: 'hello marker!',
           });
-          marker.setMap(map)
+          marker.setMap(map);
+          return marker;
         }
 
-        addMarker({lat: 55.647, lng: 37.581});
+        function addInfoWindow(contentString) {
+          const infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          return infowindow;
+        }
+
+        const marker = addMarker({lat: 55.647, lng: 37.581});
+        const infowindow = addInfoWindow('Hello WikiMap :|');
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
 
         //Associate the styled map with the MapTypeId and set it to display.
         map.mapTypes.set('styled_map', styledMapType);

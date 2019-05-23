@@ -1,10 +1,8 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
+$(document).ready(function() {
+
+  $( marker ).click(function(){
+    addInfoWindow('Hello WikiMap :|');
+    infowindow.open(map, marker);
+  });
+
 });
