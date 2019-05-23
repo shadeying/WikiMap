@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     table.float('lat').notNull();
     table.float('lng').notNull();
     table.string('editorid').notNull();
-    table.string('mapid')
+    table.integer('mapid')
       .notNull()
       .references('maps.mapid')
       .onDelete('CASCADE');
