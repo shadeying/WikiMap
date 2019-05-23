@@ -2,10 +2,10 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('favorites', (table) => {
     table.increments('id').primary();
-    table.integer('userid').notNull();
+    table.string('userid').notNull();
     table.integer('mapid')
       .notNull()
-      .references('maps.id')
+      .references('maps.mapid')
       .onDelete('CASCADE');
   })
 };
