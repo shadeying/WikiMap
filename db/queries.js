@@ -18,9 +18,18 @@ module.exports = knex => ({
       .where('mapid', mapid)
   ),
 
-  saveMap: (mapid) => (
+  newMap: maps => (
     knex('maps')
-      .where({ mapid })
-      .update( body.updates )
-  )
+      .insert(maps)
+  ),
+
+  saveMap: (mapid, updates) => {
+    console.log('updates: ', updates)
+    return knex('maps')
+      .where('mapid', mapid )
+      // .update({description: 'a new description'})
+      .update({
+        description: updates.description,
+      })
+   }
 });
