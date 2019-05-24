@@ -187,4 +187,26 @@ function initMap() {
         };
         renderPoints(mapObject.points);
 
+        let click = 0;
+
+        $( "#edit-button" ).click(function(){
+          $( "div.edit" ).slideToggle();
+          if(click === 0){
+            click ++;
+          }else{
+            click --;
+          }
+
+          const mapListener = map.addListener('click', function (event){
+            const latitude = event.latLng.lat();
+            const longitude = event.latLng.lng();
+            const position = {lat: latitude, lng: longitude};
+            const marker = addMarker(position);
+          });
+
+          if(click === 0){
+              google.maps.event.clearListeners(map);
+          }
+        });
+
 }

@@ -45,5 +45,37 @@
       </article>
     </div>
 
+    <div class="edit">
+        <section class="edit-title" style="display: none;">
+          <h2>Title</h2>
+          <hr>
+          <form method="POST" action="/:mapid/save">
+            <textarea name="text" placeholder="What are you humming about?"></textarea>
+            <input type="submit" value="Tweet">
+          </form>
+        </section>
+
+        <section class="edit-description" style="display: none;">
+          <h2>Description</h2>
+          <hr>
+          <form method="POST" action="/tweets/register/">
+            <input type="text" name="username" placeholder="Username without '@'"></textarea>
+            <input type="text" name="display-name" placeholder="Display name"></textarea>
+            <input type="password" name="password" placeholder="Your password here">
+            <button type="submit"><i class="fa fa-user-plus"></i>  Register</button>
+          </form>
+        </section>
+
+        <section class="delete" style="display: none;">
+          <h2>Delete Place</h2>
+          <hr>
+          <form method="POST" action="/:pointid/delete/">
+            <input type="text" name="username" placeholder="Username without '@'"></textarea>
+            <input type="password" name="password" placeholder="Your password here">
+            <button type="submit"><i class="fa fa-address-book"></i>  Login</button>
+          </form>
+        </section>
+      </div>
+
   </body>
 </html>

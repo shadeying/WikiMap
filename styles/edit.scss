@@ -1,1 +1,37 @@
+$coralblack: #5D576B;
+$palepink: #F1DEDE;
+$parrotpink: #D496A7;
+$mayablue: #6CD4FF;
+$tulip: #FE938C;
 
+%button {
+  float: right;
+  height: 40px;
+  width: fit-content;
+  border-radius: 10px;
+  margin-top: 30px;
+  color: $mayablue;
+  background-color: $coralblack;
+  margin-left: 5px;
+}
+
+div.edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 10px;
+  border: 5px solid $coralblack;
+  border-radius: 10px;
+  background-color: $coralblack;
+  color: $mayablue;
+  padding: 5px;
+
+  section {
+    flex-grow: 1;
+  }
+
+  button {
+    @extend %button;
+  }
+
+}
