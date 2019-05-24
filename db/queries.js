@@ -4,6 +4,27 @@ module.exports = knex => ({
       .select()
   ),
 
+  getUsersMaps: (ownerid) => (
+    knex()
+      .select()
+      .from('maps')
+      .where('ownerid', ownerid)
+  ),
+
+  getFavoritedMaps: userid => (
+    knex('favorites')
+      .select('ownerid', 'favorites.mapid', 'name', 'description')
+      .join('maps', { ['favorites.mapid']: 'maps.mapid' } )
+      .where('favorites.userid', userid)
+  ),
+
+  getEditedMaps: editorid => (
+    knex('points')
+      .select('maps.ownerid', 'points.mapid', 'maps.name', 'maps.description')
+      .join('maps', { ['points.mapid']: 'maps.mapid'})
+      .where('editorid', editorid)
+  ),
+
   getMapPoints: (mapid) => (
     knex()
       .select()
@@ -28,8 +49,6 @@ module.exports = knex => ({
     return knex('maps')
       .where('mapid', mapid )
       // .update({description: 'a new description'})
-      .update({
-        description: updates.description,
-      })
+      .update(updates);
    }
 });

@@ -3,15 +3,22 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (knex) => {
+module.exports = (queries) => {
 
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .then((results) => {
-        res.json(results);
-    });
+  });
+
+  router.get('/:userid', async (req, res) => {
+    const  { userid  } = req.params;
+    try {
+      console.log('userid: ', userid);
+      const owned = await queries.getUsersMaps(userid);
+      const favorited = await queries.getFavoritedMaps(userid);
+      const edited = await queries.getEditedMaps(userid);
+      res.json({ owned, favorited, edited })
+    } catch (err) {
+      throw err
+    }
   });
 
   return router;

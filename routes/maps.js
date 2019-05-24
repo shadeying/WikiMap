@@ -10,9 +10,10 @@ module.exports = queries => {
   })
 
   router.get("/:mapid", async (req, res) => {
-    const points = await queries.getMapPoints(req.params.mapid)
-    const favorites = await queries.getMapFavorites(req.params.mapid)
-    res.json(points, favorites);
+    const { mapid } = req.params.mapid;
+    const points = await queries.getMapPoints(mapid)
+    const favorites = await queries.getMapFavorites(mapid)
+    res.json({ points, favorites });
   });
 
   router.put("/new", async (req, res) => {
