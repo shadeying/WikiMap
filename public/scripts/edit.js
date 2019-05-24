@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-  $( "section.point-container" ).click(function(){
+  $(document).on( "click", "section.point-container" , function(event) {
     $(this).find( "div.edit-point" ).slideToggle();
     $(this).find( "input[name=pointtitle]" ).focus();
   });
 
-  $( "#delete-button" ).click(function(event){
+  $(document).on( "click", "#delete-button", function(event) {
     $(this).parents("section.point-container").remove();
-  })
+  });
 
   $( "#user-button" ).click(function(){
     $.get("/:userid", );
@@ -35,6 +35,7 @@ $(document).ready(function() {
     }else{
       document.getElementsByClassName("fav-button")[0].style.color = "#5D576B";
     }
+    $.post("/:mapid/fav/", { "userid": userid, "mapid": mapid, "fav": click });
   });
 
 });

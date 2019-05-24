@@ -17,10 +17,11 @@
     <link rel="stylesheet" href="/styles/nav.css">
     <link rel="stylesheet" href="/styles/info-window.css">
     <link rel="stylesheet" href="/styles/edit.css">
+    <link rel="stylesheet" href="/styles/new.css">
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/initmap.js"></script>
+    <script type="text/javascript" src="/scripts/new.js"></script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
 
     <script async defer
@@ -30,94 +31,9 @@
 
   <body>
     <% include partials/nav %>
-    <div class="title-container">
-      <article class="map-info">
-          <header class="map-title">
-            <i class="fa fa-map-signs"></i>Food Map
-            <form method="POST" action="/:mapid/save"><button type="submit" class="fav-button hvr-grow"><i class="fa fa-star"></i></button></form>
-          </header>
-          <p>Helloooooooo</p>
-      </article>
-      <div id="map"></div>
-    </div>
-    <div class="body-container">
-      <button id="edit-button" class="hvr-grow"><i class="fa fa-edit"></i> Edit Map</button>
-      <div class="edit" style="display: none;">
-        <form method="POST" action="/:mapid/save">
-          <section class="edit-title">
-            <h2>Title</h2>
-            <input type="text" name="maptitle" placeholder="New Map Title">
-          </section>
-          <section class="edit-description">
-            <h2>Description</h2>
-            <textarea name="text" placeholder="New Description"></textarea>
-          </section>
-          <button type="submit"><i class="fa fa-check-square-o"></i>  Save</button>
-      </div>
+    <header> Create New Map </header>
+    <div id="map"></div>
 
-      <div class="info">
-        <article class="pointlist">
-          <header><i class="fa fa-map-pin"></i> Places</header>
-          <div class="locations">
-            <section class="point-container">
-            <div class="point hvr-grow">McDonalds</div>
-              <div class="edit-point" style="display: none;">
-                <section class="edit-title">
-                  <h2>Title</h2>
-                  <input type="text" name="pointtitle" placeholder="Title">
-                </section>
-                <section class="edit-description">
-                  <h2>Description</h2>
-                  <textarea name="text" placeholder="Description"></textarea>
-                </section>
-                <section class="imageURL">
-                  <h2>Image URL</h2>
-                  <textarea name="text" placeholder="Image URL"></textarea>
-                </section>
-                <div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>
-              </div>
-            </section>
-            <section class="point-container">
-            <div class="point hvr-grow">A & W</div>
-              <div class="edit-point" style="display: none;">
-                <section class="edit-title">
-                  <h2>Title</h2>
-                  <input type="text" name="pointtitle" placeholder="Title">
-                </section>
-                <section class="edit-description">
-                  <h2>Description</h2>
-                  <textarea name="text" placeholder="Description"></textarea>
-                </section>
-                <section class="imageURL">
-                  <h2>Image URL</h2>
-                  <textarea name="text" placeholder="Image URL"></textarea>
-                </section>
-                <div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>
-              </div>
-            </section>
-            <section class="point-container">
-            <div class="point hvr-grow">Domino's Pizza</div>
-              <div class="edit-point" style="display: none;">
-                <section class="edit-title">
-                  <h2>Title</h2>
-                  <input type="text" name="pointtitle" placeholder="Title">
-                </section>
-                <section class="edit-description">
-                  <h2>Description</h2>
-                  <textarea name="text" placeholder="Description"></textarea>
-                </section>
-                <section class="imageURL">
-                  <h2>Image URL</h2>
-                  <textarea name="text" placeholder="Image URL"></textarea>
-                </section>
-                <div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>
-              </div>
-            </section>
-          </div>
-        </form>
-        </article>
-      </div>
-    </div>
 
   </body>
 </html>

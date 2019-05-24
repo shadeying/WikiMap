@@ -168,59 +168,29 @@ function initMap() {
           });
         }
 
-        function renderPage(mapObject) {
-          renderPoints(mapObject.points);
-          const title = $("span.maptitle").text(mapObject.favorites.name);
-          const description = $("p.mapdescription").text(mapObject.favorites.description);
-
-          mapObject.points.forEach(pointObject => {
-            const pointTitle = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
-            const pointDescription = $("<section>").addClass("edit-description").append($(`<h2>Description</h2><textarea name="text" placeholder="Description"></textarea>`));
-            const image = $("<section>").addClass("imageURL").append($(`<h2>Image URL</h2><textarea name="text" placeholder="Image URL"></textarea>`));
-            const remove = $(`<div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>`);
-
-            const placeHolder = $("<div>").addClass("point hvr-grow").text(pointObject.title);
-            const editBox = $(`<div class="edit-point" style="display: none;"></div>`).append(pointTitle, pointDescription, image, remove);
-            const container = $("<section>").addClass("point-container").append(placeHolder, editBox).appendTo("div.locations");
-          });
-        }
-
-        function loadMap(mapObject){
-          $.get("/map", renderPage(mapObject));
-        }
-
-
-
-     const mapObject = {
-           "favorites": [
-               {
-                   "mapid": 1,
-                   "name": "a",
-                   "description": "this is a description",
-                   "ownerid": "alice"
-               }
-           ],
-           "points": [
-               {
-                   "id": 21,
-                   "title": "point_a1",
-                   "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3",
-                   "lat": 49.2827,
-                   "lng": -123.1207,
-                   "editorid": "alice",
-                   "mapid": 1,
-                   "description": "an updated point"
-               }
-           ]
-        }
-        loadMap(mapObject);
-        // renderPoints(mapObject.points);
+        const mapObject = {
+          "favorites": {},
+          "points": [{
+            "lat": 49.2827,
+            "lng": -123.1207,
+            "title": "lol",
+            "description": "helloooooo",
+            "image":"https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
+          },
+          {
+            "lat": 49,
+            "lng": -123.2,
+            "title": "hi",
+            "description": "oyooooooo",
+            "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
+          }]
+        };
+        renderPoints(mapObject.points);
 
         let click = 0;
 
         $( "#edit-button" ).click(function(){
           $( "div.edit" ).slideToggle();
-          $( "input[name=maptitle]" ).focus();
           if(click === 0){
             click ++;
           }else{
@@ -248,31 +218,4 @@ function initMap() {
           }
         });
 
-        $(document).on( "click", "button.save-button", function(event) {
-          event.preventDefault();
-          const mapTitle = $(".edit-title input[name=maptitle]").val();
-          const mapDescription = $(".edit-mapdescription textarea[name=text]").val();
-          const pointTitle = $(".edit-title input[name=pointtitle]").val();
-          const pointDescription = $(".edit-description textarea[name=text]").val();
-          const pointImage = $(".imageURL textarea[name=text]").val();
-
-          // const object = {
-          //   userid: xx,
-          //   favorites:
-          //   points: []
-
-          // }
-
-          $.put("/api/maps/:mapid/save/", { "like": count, "id": id}, renderPoints);
-          $("input").val("");
-          $("textarea").val("");
-          $( "div.edit" ).slideUp();
-        });
-
 }
-
-
-
-
-
-

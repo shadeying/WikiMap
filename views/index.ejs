@@ -33,26 +33,27 @@
     <div class="title-container">
       <article class="map-info">
           <header class="map-title">
-            <i class="fa fa-map-signs"></i>Food Map
-            <form method="POST" action="/:mapid/save"><button type="submit" class="fav-button hvr-grow"><i class="fa fa-star"></i></button></form>
+            <i class="fa fa-map-signs"></i>
+            <span class="maptitle">Food Map</span>
+            <form method="POST" action="/api/maps/:mapid/fav/"><button type="submit" class="fav-button hvr-grow"><i class="fa fa-star"></i></button></form>
           </header>
-          <p>Helloooooooo</p>
+          <p class="mapdescription">Helloooooooo</p>
       </article>
       <div id="map"></div>
     </div>
     <div class="body-container">
       <button id="edit-button" class="hvr-grow"><i class="fa fa-edit"></i> Edit Map</button>
       <div class="edit" style="display: none;">
-        <form method="POST" action="/:mapid/save">
+        <form method="POST" action="/api/maps/:mapid/save?_method=PUT">
           <section class="edit-title">
             <h2>Title</h2>
             <input type="text" name="maptitle" placeholder="New Map Title">
           </section>
-          <section class="edit-description">
+          <section class="edit-mapdescription">
             <h2>Description</h2>
             <textarea name="text" placeholder="New Description"></textarea>
           </section>
-          <button type="submit"><i class="fa fa-check-square-o"></i>  Save</button>
+          <button class="save" type="submit"><i class="fa fa-check-square-o"></i>  Save</button>
       </div>
 
       <div class="info">
