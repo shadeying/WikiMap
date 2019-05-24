@@ -5,9 +5,8 @@ module.exports = knex => ({
   ),
 
   getUsersMaps: (ownerid) => (
-    knex()
+    knex('maps')
       .select()
-      .from('maps')
       .where('ownerid', ownerid)
   ),
 
@@ -26,9 +25,8 @@ module.exports = knex => ({
   ),
 
   getMapPoints: (mapid) => (
-    knex()
+    knex('points')
       .select()
-      .from('points')
       .where('points.mapid', mapid )
   ),
 
