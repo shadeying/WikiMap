@@ -1,12 +1,9 @@
 div.info-window {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  width: 200px;
 
-  h1 {
-    font-weight: bold;
+  img {
+    width: 100%;
   }
-
 }
 
 // <div class="info-window">

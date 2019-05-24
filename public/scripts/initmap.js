@@ -135,24 +135,22 @@ function initMap() {
             "map": map,
             "title": title
           });
-          console.log("adding marker")
           return marker;
         }
 
         function createContentString(object) {
-          console.log("creating string")
           const title = $("<h1>").text(object.title);
           const description = $("<p>").text(object.description);
           const image = $(`<img src=${object.image}>`);
-          console.log($("<div>").addClass("info-window").append(title, description, image).html())
-          return $("<div>").addClass("info-window").append(title, description, image).html();
+          const box = $("<div>").addClass("info-window").append(title, description, image);
+
+          return $("<div>").append(box).html();
         }
 
         function addInfoWindow(contentString) {
           const infowindow = new google.maps.InfoWindow({
             content: contentString
           });
-          console.log("adding info")
           return infowindow;
         }
 
@@ -173,15 +171,15 @@ function initMap() {
         const mapObject = {
           "favorites": {},
           "points": [{
-            "lat": -25.363882,
-            "lng": 131.044922,
+            "lat": 49.2827,
+            "lng": -123.1207,
             "title": "lol",
             "description": "helloooooo",
             "image":"https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
           },
           {
-            "lat": -25,
-            "lng": 131.1,
+            "lat": 49,
+            "lng": -123.2,
             "title": "hi",
             "description": "oyooooooo",
             "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3"
