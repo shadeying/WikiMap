@@ -7,6 +7,7 @@ $(document).ready(function() {
 
   $(document).on( "click", "#delete-button", function(event) {
     $(this).parents("section.point-container").remove();
+    // $(this).parents("section.point-container").attr("id").setMap(null);
   });
 
   $( "#user-button" ).click(function(){
