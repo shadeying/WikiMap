@@ -1,1 +1,109 @@
+$coralblack: #5D576B;
+$palepink: #F1DEDE;
+$parrotpink: #D496A7;
+$mayablue: #6CD4FF;
+$tulip: #FE938C;
 
+%button {
+  float: right;
+  height: 40px;
+  width: fit-content;
+  border-radius: 10px;
+  margin-top: 30px;
+  color: $mayablue;
+  background-color: $coralblack;
+  margin-left: 5px;
+}
+
+%div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 10px;
+  border: 5px solid $coralblack;
+  border-radius: 10px;
+  background-color: $coralblack;
+  color: $mayablue;
+  padding: 5px;
+}
+
+%inputfield {
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 7px;
+  padding-left: 7px;
+}
+
+%placeinput {
+  background-color: $coralblack;
+  color: white;
+}
+
+div.edit {
+  @extend %div;
+
+  section {
+    flex-grow: 1;
+
+    input {
+      @extend %inputfield;
+    }
+
+    textarea {
+      @extend %inputfield;
+    }
+  }
+
+  button {
+    @extend %button;
+  }
+
+}
+
+div.point.hvr-grow {
+  width: 90%;
+}
+
+div.edit-point {
+  @extend %div;
+  background-color: $mayablue;
+  color: $coralblack;
+  border: none;
+  padding: 20px;
+  padding-top: 0;
+
+  section {
+    flex-grow: 1;
+  }
+
+  input {
+    @extend %inputfield;
+    @extend %placeinput;
+  }
+
+  textarea {
+    @extend %inputfield;
+    @extend %placeinput;
+  }
+}
+
+section.edit-title input {
+  padding: 0 10px;
+  height: 40px;
+}
+
+section.point-container div#delete-button {
+  width: 100%;
+  background-color: $tulip;
+  color: white;
+  height: 40px;
+  margin-top: 7px;
+  padding-top: 7px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+section.point-container div#delete-button:hover {
+  cursor: pointer;
+  color: $coralblack;
+}

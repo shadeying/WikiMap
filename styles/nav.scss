@@ -13,6 +13,7 @@ nav#nav-bar{
   background-color: $coralblack;
   color:  $mayablue;
   padding: 0px 2em;
+  z-index: 20;
 
   span.header {
     font-size: 300%;
@@ -28,6 +29,7 @@ nav#nav-bar{
     color: $mayablue;
     background-color: $coralblack;
     margin-left: 5px;
+    font-size: 140%;
   }
 }
 

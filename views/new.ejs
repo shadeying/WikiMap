@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Update - WikiMap</title>
+    <title>New - WikiMap</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,15 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Averia+Sans+Libre:300,300i,700,700i">
 
-    <link rel="stylesheet" href="/styles/edit.css">
+    <link rel="stylesheet" href="/styles/layout.css">
     <link rel="stylesheet" href="/styles/nav.css">
     <link rel="stylesheet" href="/styles/info-window.css">
+    <link rel="stylesheet" href="/styles/edit.css">
+    <link rel="stylesheet" href="/styles/new.css">
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/new.js"></script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
 
     <script async defer
@@ -28,22 +31,9 @@
 
   <body>
     <% include partials/nav %>
+    <header> Create New Map </header>
     <div id="map"></div>
-    <div class="info">
-      <article class="map-title"><i class="fa fa-map-signs"></i> Food Map</article>
-      <article class="description">
-        <header><i class="fa fa-newspaper-o"></i> Description</header>
-        <p>Helloooooooo</p>
-      </article>
-      <article class="pointlist">
-        <header><i class="fa fa-map-pin"></i> Places</header>
-        <div class="locations">
-          <div class="point">McDonalds</div>
-          <div class="point">A & W</div>
-          <div class="point">Domino's Pizza</div>
-        </div>
-      </article>
-    </div>
+
 
   </body>
 </html>
