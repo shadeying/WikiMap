@@ -31,20 +31,21 @@ module.exports = queries => {
     try {
       const { mapid } = req.params
       const { map, points } = req.body;
+
       console.log('mapid: ', mapid)
       console.log('body: ', req.body)
       console.log('map: ', map)
       console.log('points: ', points)
-      await queries.updateMapInfo(mapid, map)
 
+      await queries.updateMapInfo(mapid, map)
       {
         const pointids = points.map((point) => point.id)
         await queries.deletePointsNotIncluded(pointids, mapid)
       }
 
-      // await points.forEach(async (point) => {
-      //   await queries.updatePointInfo(point.id, point)
-      // })
+      await points.forEach(async (point) => {
+        await queries.updatePointInfo(point.id, point)
+      })
 
       res.status(200).send('saved!');
     } catch (err) {
