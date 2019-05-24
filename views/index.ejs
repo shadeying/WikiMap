@@ -32,7 +32,10 @@
     <% include partials/nav %>
     <div class="title-container">
       <article class="map-info">
-          <header class="map-title"><i class="fa fa-map-signs"></i> Food Map</header>
+          <header class="map-title">
+            <i class="fa fa-map-signs"></i>Food Map
+            <form method="POST" action="/:mapid/save"><button type="submit" class="fav-button"><i class="fa fa-star"></i></button></form>
+          </header>
           <p>Helloooooooo</p>
       </article>
       <div id="map"></div>
