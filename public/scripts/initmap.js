@@ -202,6 +202,8 @@ function initMap() {
             const longitude = event.latLng.lng();
             const position = {lat: latitude, lng: longitude};
             const marker = addMarker(position);
+            // <div class="point hvr-grow">Domino's Pizza</div>
+            const placeHolder = $("<div>").addClass("point hvr-grow").appendTo("div.locations");
           });
 
           if(click === 0){
