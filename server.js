@@ -44,7 +44,7 @@ app.use("/api/users", usersRoutes(queries));
 app.use('/api/maps', mapsRoutes(queries));
 
 
-const viewRoutes = require('./routes/views')
+const viewRoutes = require('./routes/views')()
 
 // Mount view routes
 app.use('/', viewRoutes)
