@@ -6,7 +6,6 @@ $(document).ready(function() {
   });
 
   $( "#delete-button" ).click(function(event){
-    // event.preventDefault();
     $(this).parents("section.point-container").remove();
   })
 

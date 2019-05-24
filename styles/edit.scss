@@ -91,3 +91,7 @@ section.edit-title input {
   padding: 0 10px;
   height: 40px;
 }
+
+section.point-container div#delete-button {
+  @extend %button;
+}
