@@ -10,9 +10,15 @@ module.exports = queries => {
   router.get("/:mapid", async (req, res) => {
     const { mapid } = req.params
     console.log('mapid: ', mapid)
-    const points = await queries.getMapPoints(mapid);
-    const favorites = await queries.getMapFavorites(mapid);
-    res.json({ favorites, points });
+    const mapData = {
+      mapInfo: await queries.getMapInfo(mapid),
+      points: await queries.getMapPoints(mapid),
+      userFavorites: (await queries
+        .getMapFavoriteUsers(mapid)
+        .map(obj => obj.userid)
+      ),
+    }
+    res.json(mapData);
   });
 
   router.put("/new", async (req, res) => {
@@ -52,6 +58,25 @@ module.exports = queries => {
       res.status(400).send('oh noes')
       throw err;
     }
+  })
+
+  router.put('/:mapid/favorite', async (req, res) => {
+      const favorite = {
+        mapid: req.params.mapid,
+        userid: req.session.userid,
+      }
+
+      console.log('session: ', req.session);
+      console.log(favorite)
+      const { id } = await queries.getFavorite;
+      console.log('id', id)
+      if (id) {
+        queries.deleteFavorite(id)
+        return
+      }
+      queries.addFavorite(favorite)
+      console.log(await queries.getMapFavorites(favorite.mapid))
+      res.status(200)
   })
 
 

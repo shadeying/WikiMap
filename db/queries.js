@@ -24,24 +24,31 @@ module.exports = knex => ({
       .where('editorid', editorid)
   ),
 
+  getMapInfo: mapid => (
+    knex('maps')
+      .select()
+      .where('mapid', mapid)
+  ),
+
   getMapPoints: (mapid) => (
     knex('points')
-      .select()
+      .select('id', 'title', 'image', 'editorid', 'description', 'lat', 'lng')
       .where('points.mapid', mapid )
   ),
 
-  getMapFavorites: (mapid) => {
-    const columns = [
-      'maps.mapid',
-      'maps.name',
-      'maps.description',
-      'maps.ownerid'
-    ];
+  getMapFavoriteUsers: (mapid) => {
     return knex('favorites')
-      .select(...columns)
+      .select('userid')
       .join('maps', {'favorites.mapid': 'maps.mapid' })
       .where('favorites.mapid', mapid)
   },
+
+  getFavorite: ({ mapid, userid }) => (
+    knex('favorites')
+      .select()
+      .where('mapid', mapid )
+      .andWhere('userid', userid)
+  ),
 
   newMap: maps => (
     knex('maps')
@@ -70,4 +77,15 @@ module.exports = knex => ({
       })
       .del()
   ),
+
+  addFavorite: (mapid, userid) => (
+    knex('favorites')
+      .insert({ mapid, userid })
+  ),
+
+  deleteFavorite: id => (
+    knex('favorites')
+      .delete(favorite)
+  )
+
 });
