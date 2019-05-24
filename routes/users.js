@@ -23,5 +23,12 @@ module.exports = (queries) => {
     }
   });
 
+  router.get('/:userid/login', async (req, res) => {
+    console.log('userid: ', req.params.userid)
+    req.session.userid = req.params.userid
+    console.log('userid session: ', req.session.userid)
+    res.status(200).end('set cookie');
+  })
+
   return router;
 }
