@@ -1,7 +1,6 @@
 "use strict"
 const express = require('express');
 const router  = express.Router();
-const path = require('path');
 
 module.exports = queries => {
   console.log(queries);
@@ -35,10 +34,9 @@ module.exports = queries => {
       const { mapUpdates, pointsUpdates } = req.body;
       await queries.updateMapInfo(mapid, mapUpdates)
 
-      pointsUpdates.forEach(async (update) => {
+      await pointsUpdates.forEach(async (update) => {
         await queries.updatePointInfo(update.id, update)
       })
-      await queries.updatePointInfo(mapid, pointsInfo)
       res.status(200).send('saved!');
     } catch (err) {
       res.status(400).send(err)

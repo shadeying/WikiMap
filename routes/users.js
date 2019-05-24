@@ -17,6 +17,7 @@ module.exports = (queries) => {
       const edited = await queries.getEditedMaps(userid);
       res.json({ owned, favorited, edited })
     } catch (err) {
+      res.status(400).send('something went wrong!')
       throw err
     }
   });
