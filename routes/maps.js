@@ -1,7 +1,6 @@
 "use strict"
 const express = require('express');
 const router  = express.Router();
-const path = require('path');
 
 module.exports = queries => {
   console.log(queries);
@@ -10,10 +9,11 @@ module.exports = queries => {
   })
 
   router.get("/:mapid", async (req, res) => {
-    const { mapid } = req.params.mapid;
-    const points = await queries.getMapPoints(mapid)
-    const favorites = await queries.getMapFavorites(mapid)
-    res.json({ points, favorites });
+    const { mapid } = req.params
+    console.log('mapid: ', mapid)
+    const points = await queries.getMapPoints(mapid);
+    const favorites = await queries.getMapFavorites(mapid);
+    res.json({ favorites, points });
   });
 
   router.put("/new", async (req, res) => {
@@ -27,15 +27,16 @@ module.exports = queries => {
     }
   });
 
-  /**
-   * updates an entry of maps.
-   * Expecting an object body.mapid containing
-   * columns to update and their new values.
-   */
+
   router.put('/:mapid/save', async (req, res) => {
-    console.log(req.body)
     try {
-      await queries.saveMap(req.params.mapid, req.body)
+      const { mapid } = req.params.mapid
+      const { mapUpdates, pointsUpdates } = req.body;
+      await queries.updateMapInfo(mapid, mapUpdates)
+
+      await pointsUpdates.forEach(async (update) => {
+        await queries.updatePointInfo(update.id, update)
+      })
       res.status(200).send('saved!');
     } catch (err) {
       res.status(400).send(err)

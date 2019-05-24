@@ -29,26 +29,37 @@ module.exports = knex => ({
     knex()
       .select()
       .from('points')
-      .where('mapid', mapid )
+      .where('points.mapid', mapid )
   ),
 
-  getMapFavorites: (mapid) => (
-    knex()
-      .select()
-      .from('favorites')
-      .where('mapid', mapid)
-  ),
+  getMapFavorites: (mapid) => {
+    const columns = [
+      'maps.mapid',
+      'maps.name',
+      'maps.description',
+      'maps.ownerid'
+    ];
+    return knex('favorites')
+      .select(...columns)
+      .join('maps', {'favorites.mapid': 'maps.mapid' })
+      .where('favorites.mapid', mapid)
+  },
 
   newMap: maps => (
     knex('maps')
       .insert(maps)
   ),
 
-  saveMap: (mapid, updates) => {
-    console.log('updates: ', updates)
-    return knex('maps')
+  updateMapInfo: (mapid, updates) => (
+    knex('maps')
       .where('mapid', mapid )
-      // .update({description: 'a new description'})
-      .update(updates);
-   }
+      .update(updates)
+ ),
+
+  updatePointInfo: (id, updates) => (
+    knex('points')
+      .where('id', id)
+      .update(updates)
+
+  ),
 });

@@ -11,7 +11,6 @@
 *** copy config-template.json to config.json and add your api key
 *** npm run local(uses nodemon)
 ** Currently uses ejs to add the api key to the template. This is passed through to the client so its not technically private
-
 * to run the current app
 ** register an api key [[https://console.cloud.google.com/google/maps-apis][here]]
 ** copy config-template.json to config.json and add your api key
@@ -20,7 +19,7 @@
 
 * Stories
 ** As a user
-*** Goal: I want to share a place/places with other people, 
+*** Goal: I want to share a place/places with other people,
 *** motivations:
 **** we want to meet up
 **** I think it's a cool place
@@ -28,9 +27,9 @@
 *** because:
 **** I want to go there(with my friends)
 **** I want to easily share this address
-*** goal: I want to save a map that I create 
+*** goal: I want to save a map that I create
 *** because: I want to reference it later
-*** goal I want to 
+*** goal I want to
 
 ** REQUIREMENTS **
 - users can see a list of the available maps

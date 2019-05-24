@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 require('dotenv').config();
 
@@ -13,12 +13,6 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-
-// Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
-const mapsRoutes = require('./routes/maps');
-const queries = require('./db/queries.js')(knex);
-
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -38,14 +32,31 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+// Seperated Routes for each Resource
+const usersRoutes = require("./routes/users");
+const mapsRoutes = require('./routes/maps');
+
+// knex queries for resource routes
+const queries = require('./db/queries.js')(knex);
+
 // Mount all resource routes
 app.use("/api/users", usersRoutes(queries));
 app.use('/api/maps', mapsRoutes(queries));
 
+
+const viewRoutes = require('./routes/views')
+
+// Mount view routes
+app.use('/', viewRoutes)
+
 // Home page
-app.get("/", (req, res) => {
+app.get('/maps/:mapid', (req, res) => {
   res.render("index");
 });
+
+app.get('/users/:userid', (req, res) => {
+  res.render()
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
