@@ -60,6 +60,10 @@ div.edit {
 
 }
 
+div.point.hvr-grow {
+  width: 90%;
+}
+
 div.edit-point {
   @extend %div;
   background-color: $mayablue;

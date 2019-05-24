@@ -1,8 +1,25 @@
 $(document).ready(function() {
 
-  $( "div.point" ).click(function(){
-    $( "div.edit-point" ).slideToggle();
-    $( "input[name=pointtitle]" ).focus();
+  $( "section.point-container" ).click(function(){
+    $(this).find( "div.edit-point" ).slideToggle();
+    $(this).find( "input[name=pointtitle]" ).focus();
+  });
+
+  $( "#delete-button" ).click(function(event){
+    // event.preventDefault();
+    $(this).parents("section.point-container").remove();
+  })
+
+  $( "#user-button" ).click(function(){
+    $.get("/:userid", );
+  });
+
+  $( "#login-button" ).click(function(){
+
+  });
+
+  $( "#create-button" ).click(function(){
+    $.get("/new");
   });
 
   let click = 0;
