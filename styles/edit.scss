@@ -15,7 +15,7 @@ $tulip: #FE938C;
   margin-left: 5px;
 }
 
-div.edit {
+%div {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -25,13 +25,65 @@ div.edit {
   background-color: $coralblack;
   color: $mayablue;
   padding: 5px;
+}
+
+%inputfield {
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 7px;
+  padding-left: 7px;
+}
+
+%placeinput {
+  background-color: $coralblack;
+  color: white;
+}
+
+div.edit {
+  @extend %div;
 
   section {
     flex-grow: 1;
+
+    input {
+      @extend %inputfield;
+    }
+
+    textarea {
+      @extend %inputfield;
+    }
   }
 
   button {
     @extend %button;
   }
 
+}
+
+div.edit-point {
+  @extend %div;
+  background-color: $mayablue;
+  color: $coralblack;
+  border: none;
+  padding: 20px;
+  padding-top: 0;
+
+  section {
+    flex-grow: 1;
+  }
+
+  input {
+    @extend %inputfield;
+    @extend %placeinput;
+  }
+
+  textarea {
+    @extend %inputfield;
+    @extend %placeinput;
+  }
+}
+
+section.edit-title input {
+  padding: 0 10px;
+  height: 40px;
 }

@@ -202,8 +202,13 @@ function initMap() {
             const longitude = event.latLng.lng();
             const position = {lat: latitude, lng: longitude};
             const marker = addMarker(position);
-            // <div class="point hvr-grow">Domino's Pizza</div>
+
+            const title = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
+            const description = $("<section>").addClass("edit-description").append($(`<h2>Description</h2><textarea name="text" placeholder="Description"></textarea>`));
+            const image = $("<section>").addClass("imageURL").append($(`<h2>Image URL</h2><textarea name="text" placeholder="Image URL"></textarea>`));
+
             const placeHolder = $("<div>").addClass("point hvr-grow").appendTo("div.locations");
+            const editBox = $("<div>").addClass("edit-point").append(title, description, image).appendTo("div.locations");
           });
 
           if(click === 0){
