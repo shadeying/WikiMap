@@ -79,7 +79,7 @@ module.exports = queries => {
     res.status(200).json(userFavorites);
   })
 
-  router.put('/:mapid/deleteFavorite', async (req, res) => {
+  router.delete('/:mapid/deleteFavorite', async (req, res) => {
     console.log('deleting')
     const favorite = {
       mapid: req.params.mapid,
