@@ -43,12 +43,12 @@ module.exports = knex => ({
       .where('favorites.mapid', mapid)
   },
 
-  getFavorite: ({ mapid, userid }) => (
-    knex('favorites')
+  getFavorite: ({ mapid, userid }) => {
+    return knex('favorites')
       .select()
-      .where('mapid', mapid )
+      .where('mapid', mapid)
       .andWhere('userid', userid)
-  ),
+  },
 
   newMap: maps => (
     knex('maps')
@@ -78,14 +78,15 @@ module.exports = knex => ({
       .del()
   ),
 
-  addFavorite: (mapid, userid) => (
+  addFavorite: ({mapid, userid}) => (
     knex('favorites')
       .insert({ mapid, userid })
   ),
 
   deleteFavorite: id => (
     knex('favorites')
-      .delete(favorite)
+      .where('id', id)
+      .del()
   )
 
 });

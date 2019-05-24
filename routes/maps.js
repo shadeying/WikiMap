@@ -21,10 +21,9 @@ module.exports = queries => {
     res.json(mapData);
   });
 
-  router.put("/new", async (req, res) => {
+  router.post("/new", async (req, res) => {
     try {
-      console.log('map: ', req.body)
-      await queries.newMap(req.body);
+      await queries.newMap(req.body.map);
       res.status(200).send('saved')
     } catch (error) {
       res.status(400).send('something went wrong with the query!');
@@ -60,24 +59,40 @@ module.exports = queries => {
     }
   })
 
-  router.put('/:mapid/favorite', async (req, res) => {
-      const favorite = {
-        mapid: req.params.mapid,
-        userid: req.session.userid,
-      }
+  router.put('/:mapid/addFavorite', async (req, res) => {
+    const favorite = {
+      mapid: req.params.mapid,
+      userid: req.session.userid,
+    }
 
-      console.log('session: ', req.session);
-      console.log(favorite)
-      const { id } = await queries.getFavorite;
-      console.log('id', id)
-      if (id) {
-        queries.deleteFavorite(id)
-        return
-      }
-      queries.addFavorite(favorite)
-      console.log(await queries.getMapFavorites(favorite.mapid))
-      res.status(200)
+    console.log('session: ', req.session);
+    console.log('favorite: ', favorite)
+    const [existingFavorite] = await queries.getFavorite(favorite);
+    console.log('existingFavorite: ', existingFavorite)
+    if (existingFavorite) {
+      res.status(400).send('favorite already exists')
+      return;
+    }
+    await queries.addFavorite(favorite)
+    const userFavorites = await queries.getMapFavoriteUsers(favorite.mapid)
+    console.log('adding')
+    res.status(200).json(userFavorites);
   })
+
+  router.put('/:mapid/deleteFavorite', async (req, res) => {
+    console.log('deleting')
+    const favorite = {
+      mapid: req.params.mapid,
+      userid: req.session.userid,
+    }
+    const [existingFavorite] = await queries.getFavorite(favorite);
+    if (!existingFavorite) {
+      res.status(400).send('favorite doesn\'t exist')
+      return;
+    }
+    await queries.deleteFavorite(existingFavorite.id);
+    res.status(200).send('deleted favorite');
+  });
 
 
   return router;
