@@ -20,9 +20,6 @@
       "cwd": "${workspaceRoot}",
       "runtimeExecutable": "nodemon",
       "restart": true,
-      "runtimeArgs": [
-        "--inspect"
-      ],
       "program": "${workspaceFolder}/server.js",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

@@ -62,4 +62,14 @@ module.exports = knex => ({
       .update(updates)
 
   ),
+
+  deletePointsNotIncluded: (ids, mapid) => (
+    knex('points')
+      .where(function() {
+        this
+          .where('mapid', mapid)
+          .whereNotIn('id', ids)
+      })
+      .del()
+  ),
 });

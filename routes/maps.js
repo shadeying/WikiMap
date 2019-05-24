@@ -3,7 +3,6 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = queries => {
-  console.log(queries);
   router.get('/', async (req, res) => {
     res.json(await queries.getMaps());
   })
@@ -30,16 +29,27 @@ module.exports = queries => {
 
   router.put('/:mapid/save', async (req, res) => {
     try {
-      const { mapid } = req.params.mapid
-      const { mapUpdates, pointsUpdates } = req.body;
-      await queries.updateMapInfo(mapid, mapUpdates)
+      const { mapid } = req.params
+      const { map, points } = req.body;
+      console.log('mapid: ', mapid)
+      console.log('body: ', req.body)
+      console.log('map: ', map)
+      console.log('points: ', points)
+      await queries.updateMapInfo(mapid, map)
 
-      await pointsUpdates.forEach(async (update) => {
-        await queries.updatePointInfo(update.id, update)
-      })
+      {
+        const pointids = points.map((point) => point.id)
+        await queries.deletePointsNotIncluded(pointids, mapid)
+      }
+
+      // await points.forEach(async (point) => {
+      //   await queries.updatePointInfo(point.id, point)
+      // })
+
       res.status(200).send('saved!');
     } catch (err) {
-      res.status(400).send(err)
+      res.status(400).send('oh noes')
+      throw err;
     }
   })
 

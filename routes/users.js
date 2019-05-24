@@ -6,6 +6,7 @@ const router  = express.Router();
 module.exports = (queries) => {
 
   router.get("/", (req, res) => {
+    console.log('get got')
   });
 
   router.get('/:userid', async (req, res) => {
