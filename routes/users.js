@@ -9,6 +9,11 @@ module.exports = (queries) => {
     console.log('get got')
   });
 
+  router.get('/current', (req, res) => {
+    console.log(req.session);
+    res.json(req.session.userid);
+  })
+
   router.get('/:userid', async (req, res) => {
     const  { userid  } = req.params;
     try {
