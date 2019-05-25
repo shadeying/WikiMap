@@ -19,7 +19,9 @@ module.exports = () => {
   });
 
   router.get('/users/:userid', (req, res) => {
-    const templateVars = {}
+    const templateVars = {
+      userid: req.params.userid
+    }
     res.render('user', templateVars)
   })
 
