@@ -170,8 +170,8 @@ function initMap() {
 
         function renderPage(mapObject) {
           renderPoints(mapObject.points);
-          const title = $("span.maptitle").text(mapObject.mapInfo[0].name);
-          const description = $("p.mapdescription").text(mapObject.mapInfo[0].description);
+          const title = $("span.maptitle").text(mapObject.mapInfo.name);
+          const description = $("p.mapdescription").text(mapObject.mapInfo.description);
 
           mapObject.points.forEach(pointObject => {
             const pointTitle = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
@@ -179,9 +179,9 @@ function initMap() {
             const image = $("<section>").addClass("imageURL").append($(`<h2>Image URL</h2><textarea name="text" placeholder="Image URL"></textarea>`));
             const remove = $(`<div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>`);
 
-            const placeHolder = $("<div>").addClass("point hvr-grow").text(pointObject.title);
+            const placeHolder = $("<div>").addClass("point hvr-grow").attr("id", pointObject.id).text(pointObject.title);
             const editBox = $(`<div class="edit-point" style="display: none;"></div>`).append(pointTitle, pointDescription, image, remove);
-            const container = $("<section>").addClass("point-container").append(placeHolder, editBox).appendTo("div.locations");
+            const container = $("<section>").addClass("point-container").attr("id", pointObject.lat).append(placeHolder, editBox).appendTo("div.locations");
           });
         }
 
@@ -189,15 +189,21 @@ function initMap() {
           $.get("/map", renderPage(mapObject));
         }
 
+        // function loadMap(){
+        //   $.get("/map", function(data){
+        //     renderPage(data);
+        //     var data = data;
+        //   });
+        // }
+
         const mapObject = {
-            "mapInfo": [
+            "mapInfo":
                 {
                     "mapid": 1,
                     "ownerid": "alice",
-                    "name": "a",
+                    "name": "I am a title",
                     "description": "this is map a"
-                }
-            ],
+                },
             "points": [
                 {
                     "id": 29,
@@ -260,79 +266,60 @@ function initMap() {
           }
         });
 
+        function check(val, ref){
+            if(val){
+              return val;
+            }
+            return ref;
+          }
+
         $(document).on( "click", "button.save-button", function(event) {
           event.preventDefault();
           const mapName = $(".edit-title input[name=maptitle]").val();
           const mapDescription = $(".edit-mapdescription textarea[name=text]").val();
           const points = [];
+          const oldPointArray = data.points;
 
           markers.forEach(marker => {
+            var index = 0;
+            for(let i = 0; i < oldPointArray.length; i++){
+              if(marker.lat() == oldPointArray[i].lat){
+                index = i;
+                break;
+              }
+            }
+            const pointID = oldPointArray[index].id;
             const pointTitle = $("#" + marker.lat()).find(".edit-title input[name=pointtitle]").val();
             const pointDescription = $("#" + marker.lat()).find(".edit-description textarea[name=text]").val();
             const pointImage = $("#" + marker.lat()).find(".imageURL textarea[name=text]").val();
+
             const pointObject = {
-              title: pointTitle,
-              image: pointImage,
-              editorid: userid,
-              description: pointDescription,
+              title: check(pointTitle, oldPointArray[index].title),
+              image: check(pointImage, oldPointArray[index].image),
+              // editorid: req.session.userid,
+              description: check(pointDescription, oldPointArray[index].description),
               lat: marker.lat(),
               lng: marker.lng()
             };
+            if(pointID){
+              pointObject.id = pointID;
+            }
             points.push(pointObject);
-          })
-
-          $.get("/map", function(data){
-            var data = data;
           });
 
-          // function check(val, ref){
-          //   if(!val)
-          // }
+          const object = {
+            "mapInfo":
+              {
+                "mapid": data.mapInfo.mapid,
+                "ownerid": data.mapInfo.ownerid,
+                "name": check(mapName, data.mapInfo.name),
+                "description": check(mapDescription, data.mapInfo.description)
+              },
+            "points": points,
+            "userFavorites": data.userFavorites
+          }
 
-          // const object = {
-          //   "mapInfo": [
-
-          //   ]
-
-          // }
-
-          const data = {
-                      "mapInfo": [
-                          {
-                              "mapid": 1,
-                              "ownerid": "alice",
-                              "name": "a",
-                              "description": "this is map a"
-                          }
-                      ],
-                      "points": [
-                          {
-                              "id": 29,
-                              "title": "point_a1",
-                              "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3",
-                              "editorid": "alice",
-                              "description": "this is point a1",
-                              "lat": 49.246292,
-                              "lng": -123.116226
-                          },
-                          {
-                              "id": 30,
-                              "title": "point_a2",
-                              "image": "https://preview.redd.it/udxpo5xhyu811.jpg?width=960&crop=smart&auto=webp&s=d2e1870c7378d7d626c83f7c79a1f0cce0ea36e3",
-                              "editorid": "charlie",
-                              "description": "this is point a2",
-                              "lat": 49.23,
-                              "lng": -123.10
-                          }
-                      ],
-                      "userFavorites": [
-                          "bob",
-                          "alice"
-                      ]
-                  }
-
-
-          $.put("/api/maps/:mapid/save/", loadMap);
+          $.put("/api/maps/:mapid/save/", object, loadMap);
           $("input").val("");
           $("textarea").val("");
           $( "div.edit" ).slideUp();
