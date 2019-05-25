@@ -93,6 +93,10 @@ module.exports = knex => ({
     knex('favorites')
       .where('id', id)
       .del()
-  )
+  ),
 
+  getNextMapid: () => (
+    1 + knex('map')
+      .max('mapid')
+  )
 });
