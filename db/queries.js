@@ -30,17 +30,13 @@ module.exports = knex => ({
       .where('mapid', mapid)
   ),
 
+
   getMapPoints: (mapid) => (
     knex('points')
       .select('id', 'title', 'image', 'editorid', 'description', 'lat', 'lng')
       .where('points.mapid', mapid )
   ),
 
-  getMapRepr: async (mapid, queries) => ({
-    mapInfo: (await queries.getMapInfo(mapid))[0],
-    points: await queries.getMapPoints(mapid),
-    userFavorites: (await queries.getMapFavoriteUsers(mapid).map(obj => obj.userid)),
-  }),
 
   getMapFavoriteUsers: (mapid) => {
     return knex('favorites')

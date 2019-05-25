@@ -3,8 +3,7 @@ const express = require('express');
 const router  = express.Router();
 const path = require('path');
 
-
-module.exports = () => {
+module.exports = (queries, dataHelpers) => {
 
   router.get("/", (req, res) => {
     res.redirect('/map');
@@ -14,14 +13,14 @@ module.exports = () => {
     res.render("index");
   });
 
-  router.get('/maps', (req, res) => {
-    res.render("maps");
+  router.get('/maps', async (req, res) => {
+    res.render('maps', await queries.getMaps());
   });
 
-  router.get('/users/:userid', (req, res) => {
-    const templateVars = {
-      userid: req.params.userid
-    };
+  router.get('/users/:userid', async (req, res) => {
+    const { userid } = req.params
+    const templateVars = await dataHelpers.getMapsForUsersPage(userid)
+    console.log(templateVars);
     res.render('user', templateVars);
   });
 

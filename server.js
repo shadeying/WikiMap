@@ -46,13 +46,14 @@ const mapsRoutes = require('./routes/maps');
 
 // knex queries for resource routes
 const queries = require('./db/queries.js')(knex);
+const dataHelpers = require('./dataHelpers')(queries);
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(queries));
-app.use('/api/maps', mapsRoutes(queries));
+app.use("/api/users", usersRoutes(queries, dataHelpers));
+app.use('/api/maps', mapsRoutes(queries, dataHelpers));
 
 
-const viewRoutes = require('./routes/views')()
+const viewRoutes = require('./routes/views')(queries, dataHelpers)
 
 // Mount view routes
 app.use('/', viewRoutes)
