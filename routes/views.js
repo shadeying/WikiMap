@@ -5,10 +5,6 @@ const path = require('path');
 
 module.exports = (queries, dataHelpers) => {
 
-  router.get("/", (req, res) => {
-    res.render("main");
-  });
-
   router.get('/', (req, res) => {
     const templateVars = queries.getMaps();
     res.render('maps', templateVars)
