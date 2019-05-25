@@ -170,8 +170,8 @@ function initMap() {
 
         function renderPage(mapObject) {
           renderPoints(mapObject.points);
-          const title = $("span.maptitle").text(mapObject.mapInfo[0].name);
-          const description = $("p.mapdescription").text(mapObject.mapInfo[0].description);
+          const title = $("span.maptitle").text(mapObject.mapInfo.name);
+          const description = $("p.mapdescription").text(mapObject.mapInfo.description);
 
           mapObject.points.forEach(pointObject => {
             const pointTitle = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
@@ -197,14 +197,13 @@ function initMap() {
         // }
 
         const mapObject = {
-            "mapInfo": [
+            "mapInfo":
                 {
                     "mapid": 1,
                     "ownerid": "alice",
                     "name": "a",
                     "description": "this is map a"
-                }
-            ],
+                },
             "points": [
                 {
                     "id": 29,
@@ -289,17 +288,15 @@ function initMap() {
                 break;
               }
             }
-            const pointID = $("#" + marker.lat()).find("div.point.hvr-grow").attr("id");
+            const pointID = oldPointArray[index].id;
             const pointTitle = $("#" + marker.lat()).find(".edit-title input[name=pointtitle]").val();
-            const oldTitle = $("#" + marker.lat()).find("div.point.hvr-grow").text();
             const pointDescription = $("#" + marker.lat()).find(".edit-description textarea[name=text]").val();
-            const oldDescription = ("#" + marker.lat()).find("div.point.hvr-grow").text();
             const pointImage = $("#" + marker.lat()).find(".imageURL textarea[name=text]").val();
 
             const pointObject = {
               title: check(pointTitle, oldPointArray[index].title),
               image: check(pointImage, oldPointArray[index].image),
-              editorid: userid,
+              // editorid: req.session.userid,
               description: check(pointDescription, oldPointArray[index].description),
               lat: marker.lat(),
               lng: marker.lng()
@@ -308,17 +305,16 @@ function initMap() {
               pointObject.id = pointID;
             }
             points.push(pointObject);
-          })
+          });
 
           const object = {
-            "mapInfo": [
+            "mapInfo":
               {
-                "mapid": data.mapInfo[0].mapid,
-                "ownerid": data.mapInfo[0].ownerid,
-                "name": check(mapName, data.mapInfo[0].name),
-                "description": check(mapDescription, data.mapInfo[0].description)
-              }
-            ],
+                "mapid": data.mapInfo.mapid,
+                "ownerid": data.mapInfo.ownerid,
+                "name": check(mapName, data.mapInfo.name),
+                "description": check(mapDescription, data.mapInfo.description)
+              },
             "points": points,
             "userFavorites": data.userFavorites
           }

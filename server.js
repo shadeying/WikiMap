@@ -47,7 +47,7 @@ app.use('/api/maps', mapsRoutes(queries));
 const viewRoutes = require('./routes/views')()
 
 // Mount view routes
-app.use('/', viewRoutes)
+app.use('/', viewRoutes);
 
 // Home page
 app.get('/maps/:mapid', (req, res) => {
@@ -55,8 +55,12 @@ app.get('/maps/:mapid', (req, res) => {
 });
 
 app.get('/users/:userid', (req, res) => {
-  res.render()
-})
+  res.render();
+});
+
+app.get('/new', (req,res) => {
+  res.render("new");
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = () => {
 
   router.get("/", (req, res) => {
-    res.redirect('/map')
+    res.redirect('/map');
   });
 
   router.get('/map', (req, res) => {
@@ -19,10 +19,14 @@ module.exports = () => {
   });
 
   router.get('/users/:userid', (req, res) => {
-    const templateVars = {}
-    res.render('user', templateVars)
-  })
+    const templateVars = {};
+    res.render('user', templateVars);
+  });
+
+  router.get('/new', (req, res) => {
+    res.render("new");
+  });
 
 
-  return router
+  return router;
 }
