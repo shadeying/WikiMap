@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home - WikiMap</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/info-window.css">
+    <link rel="stylesheet" href="/styles/user.css">
+
+    <!-- External JS -->
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/user.js"></script>
+
+  </head>
+
+  <body>
+    <% include partials/nav %>
+    <header class="username"><i class="fa fa-user-circle-o"></i> Alice</header>
+    <div class="map-container">
+      <section class="owned-container">
+        <header class="title"><i class="fa fa-map-marker"></i> My Maps</header>
+        <div class="my-map">
+          <header>Title</header>
+          <p>Description</p>
+        </div>
+        <div class="my-map">
+          <header>Title</header>
+          <p>Description</p>
+        </div>
+        <div class="my-map">
+          <header>Title</header>
+          <p>Description</p>
+        </div>
+      </section>
+
+      <section class="favorite-container">
+        <header class="title"><i class="fa fa-star"></i> Favourite</header>
+        <div class="favorite-map">
+          <header>Title</header>
+          <p>Description</p>
+          <footer>Owner: Charlie</footer>
+        </div>
+        <div class="favorite-map">
+          <header>Title</header>
+          <p>Description</p>
+          <footer>Owner: Charlie</footer>
+        </div>
+      </section>
+
+      <section class="edited-container">
+        <header class="title"><i class="fa fa-pencil"></i> Contributed</header>
+        <div class="edited-map">
+          <header>Title</header>
+          <p>Description</p>
+          <footer>Owner: Charlie</footer>
+        </div>
+        <div class="edited-map">
+          <header>Title</header>
+          <p>Description</p>
+          <footer>Owner: Charlie</footer>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

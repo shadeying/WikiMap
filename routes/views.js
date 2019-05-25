@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = () => {
 
   router.get("/", (req, res) => {
-    res.redirect('/map');
+    res.render("main");
   });
 
   router.get('/map', (req, res) => {
