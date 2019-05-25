@@ -1,44 +1,44 @@
-$coralblack: #5D576B;
-$palepink: #F1DEDE;
-$parrotpink: #D496A7;
-$mayablue: #6CD4FF;
-$tulip: #FE938C;
+$winedregs: #612940;
+$smokyblack: #0F110C;
+$seashell: #FDECEF;
+$pink: #9D6381;
+$grey: #CECCCC;
 
 %article {
   margin: 10px;
-  border: solid 5px $coralblack;
-  border-radius: 10px;
+  border: solid 2px $seashell;
+  border-radius: 8px;
   flex-grow: 1;
   width: 25vw;
 }
 
 %header {
-  height: 50px;
-  background-color: $coralblack;
-  color: $palepink;
-  font-size: 200%;
+  height: 60px;
+  background-color: $seashell;
+  color: $winedregs;
+  font-size: 250%;
 }
 
 %point {
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px;
   font-size: 140%;
-  background-color: $parrotpink;
-  color: $palepink;
+  background-color: $pink;
+  color: $smokyblack;
 }
 
 html {
   box-sizing: border-box;
-  font-family: 'Averia Sans Libre', cursive;
+  font-family: 'Alegreya', serif;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 body {
-  background-color: $palepink;
-  margin-top: 100px;
+  background-color: $smokyblack;
+  margin-top: 70px;
   height: 100%;
   width: 100%;
   display: inline-flex;
@@ -48,26 +48,26 @@ body {
     display: flex;
     flex-direction: column;
     margin: 10px;
-    justify-content: space-around;
     width: 75vw;
 
     article.map-info {
-      border: solid 5px $coralblack;
-      border-radius: 10px;
+      border: solid 2px $seashell;
+      border-radius: 8px;
       margin: 10px;
 
       header.map-title {
-        padding: 10px;
-        background-color: $mayablue;
-        color: $coralblack;
-        font-size: 4vw;
+        border-radius: 4px;
+        background-color: $seashell;
+        color: $winedregs;
+        font-size: 3vw;
         text-align: center;
         display: flex;
         justify-content: space-around;
+        padding-left: 30%;
 
         button.fav-button {
-          background-color: $mayablue;
-          color: $coralblack;
+          background-color: $seashell;
+          color: $smokyblack;
           border: none;
           outline: none;
           box-shadow: none;
@@ -75,14 +75,15 @@ body {
       }
 
       p {
+        color: $grey;
         padding-left: 30px;
         font-size: 140%;
       }
     }
 
   div#map {
-      border-radius: 10px;
-      border: solid 10px $coralblack;
+      border-radius: 8px;
+      border: solid 2px $seashell;
       margin: 10px;
       height: -webkit-fill-available;
     }
@@ -95,20 +96,21 @@ body {
     margin-right: 20px;
 
     button#edit-button {
-      padding: 15px;
+      font-weight: bold;
+      padding: 9px;
       margin: 20px;
-      height: 80px;
+      height: 100px;
       font-size: 3vw;
-      border-radius: 10px;
-      color: $mayablue;
-      background-color: $coralblack;
+      border-radius: 8px;
+      border: solid 2px $seashell;
+      color: $smokyblack;
+      background-color: $pink;
       outline: none;
       box-shadow: none;
     }
 
     div.info {
-      font-weight: bold;
-      color: $coralblack;
+      color: $smokyblack;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -132,6 +134,7 @@ body {
         }
 
         div.locations {
+          margin-top: 10px;
           display: flex;
           flex-direction: column;
 
@@ -146,5 +149,5 @@ body {
 
 div.title-container article.map-info header.map-title form button.fav-button:hover{
   cursor: pointer;
-  color: $tulip;
+  color: $pink;
 }

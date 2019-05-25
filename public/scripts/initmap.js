@@ -201,7 +201,7 @@ function initMap() {
                 {
                     "mapid": 1,
                     "ownerid": "alice",
-                    "name": "a",
+                    "name": "I am a title",
                     "description": "this is map a"
                 },
             "points": [

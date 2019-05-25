@@ -1,40 +1,42 @@
-$coralblack: #5D576B;
-$palepink: #F1DEDE;
-$parrotpink: #D496A7;
-$mayablue: #6CD4FF;
-$tulip: #FE938C;
+$winedregs: #612940;
+$smokyblack: #0F110C;
+$seashell: #FDECEF;
+$pink: #9D6381;
+$grey: #CECCCC;
 
 nav#nav-bar{
   overflow: hidden;
   top: 0;
   position: fixed;
-  height: 100px;
+  height: 70px;
   width: 100%;
-  background-color: $coralblack;
-  color:  $mayablue;
+  background-color: $winedregs;
+  color: $seashell;
   padding: 0px 2em;
   z-index: 20;
+  text-align: center;
 
   span.header {
-    font-size: 300%;
-    line-height: 200%;
+    font-size: 250%;
+    line-height: 170%;
+    padding-left: 70px;
   }
 
   button {
     float: right;
-    height: 40px;
+    height: 50px;
     width: fit-content;
-    border-radius: 10px;
-    margin-top: 30px;
-    color: $mayablue;
-    background-color: $coralblack;
-    margin-left: 5px;
-    font-size: 140%;
+    margin-top: 10px;
+    color: $seashell;
+    background-color: $winedregs;
+    margin-left: 20px;
+    font-size: 200%;
+    border: none;
   }
 }
 
 nav#nav-bar button:hover {
-  color: $parrotpink;
+  color: $grey;
   opacity: 1;
 }
 
