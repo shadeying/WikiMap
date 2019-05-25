@@ -6,23 +6,23 @@ const path = require('path');
 module.exports = (queries, dataHelpers) => {
 
   router.get('/', (req, res) => {
-    const templateVars = queries.getMaps();
-    res.render('maps', templateVars)
+    res.redirect('/maps')
   })
 
-  router.get('/map', (req, res) => {
-    res.render("index");
+  router.get('/maps/:mapid', (req, res) => {
+    res.render("index", { mapid: req.params.mapid });
   });
 
   router.get('/maps', async (req, res) => {
-    console.log(await queries.getMaps());
-    res.render('maps', { maps: await queries.getMaps() });
+    const maps = await queries.getMaps();
+    console.log(maps)
+    res.render('maps', { maps });
   });
 
   router.get('/users/:userid', async (req, res) => {
     const { userid } = req.params
-    const templateVars = await dataHelpers.getMapsForUsersPage(userid)
-    console.log(templateVars);
+    const maps = await dataHelpers.getMapsForUsersPage(userid)
+    console.log(maps);
     res.render('user', templateVars);
   });
 
