@@ -40,6 +40,13 @@ app.use(cookieSession({
   keys: ['key'],
 }));
 
+app.use((req, res, next) => {
+  res.locals.userid = req.session
+    ? req.session.userid
+    : null;
+  next();
+})
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require('./routes/maps');
