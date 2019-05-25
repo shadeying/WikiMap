@@ -15,7 +15,8 @@ module.exports = queries => {
     try {
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
-      await queries.newMap(req.body.map);
+      console.log(req.body)
+      await queries.newMap(req.body);
       res.redirect('/maps/' + mapid)
     } catch (error) {
       res.status(400).send('something went wrong with the query!');

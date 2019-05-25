@@ -95,8 +95,8 @@ module.exports = knex => ({
       .del()
   ),
 
-  getNextMapid: () => (
-    1 + knex('map')
-      .max('mapid')
-  )
+  getNextMapid: async () => (
+    1 + (await knex('maps')
+      .max('mapid'))[0].max
+  ),
 });
