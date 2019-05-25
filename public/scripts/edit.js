@@ -10,18 +10,6 @@ $(document).ready(function() {
     // $(this).parents("section.point-container").attr("id").setMap(null);
   });
 
-  $( "#user-button" ).click(function(){
-    $.get("/:userid", );
-  });
-
-  $( "#login-button" ).click(function(){
-
-  });
-
-  $( "#create-button" ).click(function(){
-    $.get("/new");
-  });
-
   let click = 0;
   $(document).on( "click", "button.fav-button", function(event) {
     event.preventDefault();

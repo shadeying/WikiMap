@@ -3,6 +3,7 @@ $smokyblack: #0F110C;
 $seashell: #FDECEF;
 $pink: #9D6381;
 $grey: #CECCCC;
+$tulip: #FE938C;
 
 nav#nav-bar{
   overflow: hidden;
@@ -36,8 +37,12 @@ nav#nav-bar{
 }
 
 nav#nav-bar button:hover {
-  color: $grey;
+  color: $tulip;
   opacity: 1;
+}
+
+nav#nav-bar span.header:hover {
+  color: $tulip;
 }
 
 .hvr-grow {

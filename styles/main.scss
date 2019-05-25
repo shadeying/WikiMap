@@ -3,6 +3,7 @@ $smokyblack: #0F110C;
 $seashell: #FDECEF;
 $pink: #9D6381;
 $grey: #CECCCC;
+$red: #E84855;
 
 %span {
   display: flex;
@@ -76,5 +77,10 @@ body {
       @extend %div;
     }
   }
+}
 
+span:hover {
+  cursor: pointer;
+  color: $red;
+  opacity: 1;
 }
