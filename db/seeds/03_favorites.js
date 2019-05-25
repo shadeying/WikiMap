@@ -15,6 +15,10 @@ exports.seed = function(knex, Promise) {
         {
           mapid: '3',
           userid: 'alice',
+        },
+        {
+          mapid: '1',
+          userid: 'alice',
         }
       ])
     });

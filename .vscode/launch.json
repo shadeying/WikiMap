@@ -6,12 +6,18 @@
   "configurations": [
     {
       "type": "chrome",
-      "request": "attach",
-      "name": "Attach to Chrome",
-      "port": 8000,
-      "webRoot": "${workspaceFolder}"
+      "request": "launch",
+      "runtimeExecutable": "/usr/bin/chromium-browser",
+      "runtimeArgs": [
+        "--user-data-dir=\"~/.config/chromium/Default\"",
+        "--remote-debugging-port=9222"
+      ],
+      "name": "Launch Chromium against localhost",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}/public",
+      "sourceMaps": true,
+      "trace": true
     },
-
     {
       "type": "node",
       "request": "launch",
@@ -20,9 +26,6 @@
       "cwd": "${workspaceRoot}",
       "runtimeExecutable": "nodemon",
       "restart": true,
-      "runtimeArgs": [
-        "--inspect"
-      ],
       "program": "${workspaceFolder}/server.js",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

@@ -5,9 +5,8 @@ module.exports = knex => ({
   ),
 
   getUsersMaps: (ownerid) => (
-    knex()
+    knex('maps')
       .select()
-      .from('maps')
       .where('ownerid', ownerid)
   ),
 
@@ -25,24 +24,36 @@ module.exports = knex => ({
       .where('editorid', editorid)
   ),
 
-  getMapPoints: (mapid) => (
-    knex()
+  getMapInfo: mapid => (
+    knex('maps')
       .select()
-      .from('points')
+      .where('mapid', mapid)
+  ),
+
+  getMapPoints: (mapid) => (
+    knex('points')
+      .select('id', 'title', 'image', 'editorid', 'description', 'lat', 'lng')
       .where('points.mapid', mapid )
   ),
 
-  getMapFavorites: (mapid) => {
-    const columns = [
-      'maps.mapid',
-      'maps.name',
-      'maps.description',
-      'maps.ownerid'
-    ];
+  getMapRepr: async (mapid, queries) => ({
+    mapInfo: (await queries.getMapInfo(mapid))[0],
+    points: await queries.getMapPoints(mapid),
+    userFavorites: (await queries.getMapFavoriteUsers(mapid).map(obj => obj.userid)),
+  }),
+
+  getMapFavoriteUsers: (mapid) => {
     return knex('favorites')
-      .select(...columns)
+      .select('userid')
       .join('maps', {'favorites.mapid': 'maps.mapid' })
       .where('favorites.mapid', mapid)
+  },
+
+  getFavorite: ({ mapid, userid }) => {
+    return knex('favorites')
+      .select()
+      .where('mapid', mapid)
+      .andWhere('userid', userid)
   },
 
   newMap: maps => (
@@ -62,4 +73,26 @@ module.exports = knex => ({
       .update(updates)
 
   ),
+
+  deletePointsNotIncluded: (ids, mapid) => (
+    knex('points')
+      .where(function() {
+        this
+          .where('mapid', mapid)
+          .whereNotIn('id', ids)
+      })
+      .del()
+  ),
+
+  addFavorite: ({mapid, userid}) => (
+    knex('favorites')
+      .insert({ mapid, userid })
+  ),
+
+  deleteFavorite: id => (
+    knex('favorites')
+      .where('id', id)
+      .del()
+  )
+
 });
