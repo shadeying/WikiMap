@@ -24,53 +24,9 @@
 
   <body>
     <% include partials/nav %>
-    <div class="owned">
-      <h1 class="owned__title">Owned</h1>
-      <% owned.forEach(map => { %>
-        <div class="map">
-          <label class="map__name"> <%= map.name %> </label>
-          <span class="map__owner"> <%= map.owner %> </span>
-          <p1 class="map__description"> <%= map.description %> </p1>
-        </div>
-      <% }); %>
-    </div>
-
-    <div class="favorited">
-      <h1 class="favorited__title">Favorited</h1>
-      <% favorited.forEach(map => { %>
-        <div class="map">
-          <label class="map__name"> <%= map.name %> </label>
-          <span class="map__owner"> <%= map.owner %> </span>
-          <p1 class="map__description"> <%= map.description %> </p1>
-        </div>
-      <% }); %>
-    </div>
-
-    <div class="edited">
-      <h1 class="edited">Edited</h1>
-      <% edited.forEach(map => { %>
-        <div class="map">
-          <label class="map__name"> <%= map.name %> </label>
-          <span class="map__owner"> <%= map.owner %> </span>
-          <p1 class="map__description"> <%= map.description %> </p1>
-        </div>
-      <% }); %>
-    </div>
-
-      <section class="edited-container">
-        <header class="title"><i class="fa fa-pencil"></i> Contributed</header>
-        <div class="edited-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-        <div class="edited-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-      </section>
-    </div>
+    <%- include('partials/mapCollection', {maps: maps.owned, category: 'owned'}) %>
+    <%- include('partials/mapCollection', {maps: maps.favorited, category: 'favorited'}) %>
+    <%- include('partials/mapCollection', {maps: maps.edited, category: 'favorited'}) %>
   </body>
 </html>
 <!-- {

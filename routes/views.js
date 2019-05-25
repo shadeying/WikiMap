@@ -23,7 +23,7 @@ module.exports = (queries, dataHelpers) => {
     const { userid } = req.params
     const maps = await dataHelpers.getMapsForUsersPage(userid)
     console.log(maps);
-    res.render('user', templateVars);
+    res.render('user', {maps, userid});
   });
 
   return router;
