@@ -21,6 +21,11 @@
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/initmap.js"></script>
+    <script type="text/javascript">
+      // returns initMap function with mapid in scope to make AJAX request
+      var initMap = initMapFactory(Number( <%= mapid %>));
+      console.log(initMap)
+    </script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
 
     <script async defer
