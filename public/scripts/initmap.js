@@ -250,10 +250,6 @@ const initMapFactory = (mapid) => {
       });
     }
 
-    function loadMap(mapObject) {
-      $.get("/map", renderPage(mapObject));
-    }
-
     // function loadMap(){
     //   $.get("/map", function(data){
     //     renderPage(data);
@@ -293,8 +289,9 @@ const initMapFactory = (mapid) => {
       ]
     }
 
+    console.log('getting')
     $.get(`/api/maps/${mapid}`)
-      .done(loadMap)
+      .done(renderPage)
       .fail(() => alert('request error'));
 
     let click = 0;
@@ -386,10 +383,15 @@ const initMapFactory = (mapid) => {
         "userFavorites": data.userFavorites
       }
 
-      $.put("/api/maps/:mapid/save/", object, loadMap);
-      $("input").val("");
-      $("textarea").val("");
-      $("div.edit").slideUp();
+      $.ajax({
+        url: `/api/maps/${mapid}/save`,
+        method: 'PUT',
+      })
+        .done(() => {
+          $("input").val("");
+          $("textarea").val("");
+          $("div.edit").slideUp();
+        });
     });
   }
 }
