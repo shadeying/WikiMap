@@ -13,14 +13,15 @@ module.exports = queries => {
 
   router.post("/new", async (req, res) => {
     try {
+      const mapid = await queries.getNextMapid();
+      console.log('mapid', mapid);
       await queries.newMap(req.body.map);
-      res.status(200).send('saved')
+      res.redirect('/maps/' + mapid)
     } catch (error) {
       res.status(400).send('something went wrong with the query!');
       throw error;
     }
   });
-
 
   router.put('/:mapid/save', async (req, res) => {
     try {
@@ -28,11 +29,6 @@ module.exports = queries => {
       const { mapInfo, points, } = req.body;
 
       console.log(req.body)
-
-      // console.log('mapid: ', mapid)
-      // console.log('body: ', req.body)
-      // console.log('map: ', mapInfo)
-      // console.log('points: ', points)
 
       await queries.updateMapInfo(mapid, mapInfo)
       {
