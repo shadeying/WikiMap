@@ -14,7 +14,8 @@ module.exports = (queries, dataHelpers) => {
   });
 
   router.get('/maps', async (req, res) => {
-    res.render('maps', await queries.getMaps());
+    console.log(await queries.getMaps());
+    res.render('maps', { maps: await queries.getMaps() });
   });
 
   router.get('/users/:userid', async (req, res) => {
