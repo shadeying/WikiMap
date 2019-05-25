@@ -19,14 +19,11 @@ module.exports = () => {
   });
 
   router.get('/users/:userid', (req, res) => {
-    const templateVars = {};
+    const templateVars = {
+      userid: req.params.userid
+    };
     res.render('user', templateVars);
   });
-
-  router.get('/new', (req, res) => {
-    res.render("new");
-  });
-
 
   return router;
 }

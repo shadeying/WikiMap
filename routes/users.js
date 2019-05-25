@@ -10,7 +10,6 @@ module.exports = (queries) => {
   });
 
   router.get('/current', (req, res) => {
-    console.log(req.session);
     res.json(req.session.userid);
   })
 
