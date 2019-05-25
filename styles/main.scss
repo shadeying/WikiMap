@@ -1,0 +1,80 @@
+$winedregs: #612940;
+$smokyblack: #0F110C;
+$seashell: #FDECEF;
+$pink: #9D6381;
+$grey: #CECCCC;
+
+%span {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  margin-top: 30px;
+}
+
+%div {
+  width: 400px;
+  height: 300px;
+  border: 2px solid $seashell;
+  margin: 20px 30px;
+  flex-grow: 1;
+  border-radius: 20px;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Alegreya', serif;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: $pink;
+  margin-top: 70px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+
+  section.banner {
+    width: 100%;
+    opacity: 0.5;
+    background-color: $smokyblack;
+    color: $seashell;
+    padding: 10px;
+    font-weight: bold;
+
+    header {
+      font-size: 5.5vw;
+      margin: 0.5em;
+    }
+
+    div {
+      display: inline-flex;
+      justify-content: space-evenly;
+      margin: 1em;
+      font-size: 4vw;
+      background-color: $grey;
+      color: $smokyblack;
+      width: 90vw;
+      height: auto;
+      border-radius: 20px;
+
+      span {
+        @extend %span;
+      }
+    }
+  }
+
+  section.map-container {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    div {
+      @extend %div;
+    }
+  }
+
+}
