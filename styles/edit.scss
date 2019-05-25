@@ -34,11 +34,6 @@ $tulip: #FE938C;
   padding-left: 7px;
 }
 
-%placeinput {
-  background-color: $coralblack;
-  color: white;
-}
-
 div.edit {
   @extend %div;
 
@@ -66,8 +61,8 @@ div.point.hvr-grow {
 
 div.edit-point {
   @extend %div;
-  background-color: $mayablue;
-  color: $coralblack;
+  background-color: $coralblack;
+  color: $mayablue;
   border: none;
   padding: 20px;
   padding-top: 0;
@@ -78,12 +73,10 @@ div.edit-point {
 
   input {
     @extend %inputfield;
-    @extend %placeinput;
   }
 
   textarea {
     @extend %inputfield;
-    @extend %placeinput;
   }
 }
 
@@ -106,4 +99,10 @@ section.point-container div#delete-button {
 section.point-container div#delete-button:hover {
   cursor: pointer;
   color: $coralblack;
+}
+
+button.save:hover {
+  cursor: pointer;
+  background-color: $tulip;
+  color: white;
 }

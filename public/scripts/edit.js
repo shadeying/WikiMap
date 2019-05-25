@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-  $(document).on( "click", "section.point-container" , function(event) {
-    $(this).find( "div.edit-point" ).slideToggle();
+  $(document).on( "click", "div.point.hvr-grow" , function(event) {
+    $(this).siblings( "div.edit-point" ).slideToggle();
     $(this).find( "input[name=pointtitle]" ).focus();
   });
 

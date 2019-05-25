@@ -5,7 +5,7 @@ $(document).ready(function() {
   });
 
   $( "#user-button" ).click(function(){
-    $.get("/:userid/maps");
+    $.get("/users/:userid");
   });
 
   $( "#login-button" ).click(function(){
