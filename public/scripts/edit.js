@@ -21,11 +21,11 @@ $(document).ready(function() {
 
     if(click === 1){
       document.getElementsByClassName("fav-button")[0].style.color = "#FE938C";
-      $.post("/api/maps/:mapid/fav/", {userid: userid, mapid: mapid});
+      $.put("/api/maps/:mapid/addFavorite/", {userid: userid, mapid: mapid});
     }else{
       document.getElementsByClassName("fav-button")[0].style.color = "#5D576B";
     }
-    $.post("/api/maps/:mapid/fav/delete", { "userid": userid, "mapid": mapid});
+    $.delete("/api/maps/:mapid/fav/delete", { "userid": userid, "mapid": mapid});
   });
 
 });
