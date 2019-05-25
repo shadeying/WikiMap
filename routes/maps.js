@@ -8,17 +8,7 @@ module.exports = queries => {
   })
 
   router.get("/:mapid", async (req, res) => {
-    const { mapid } = req.params
-    console.log('mapid: ', mapid)
-    const mapData = {
-      mapInfo: await queries.getMapInfo(mapid),
-      points: await queries.getMapPoints(mapid),
-      userFavorites: (await queries
-        .getMapFavoriteUsers(mapid)
-        .map(obj => obj.userid)
-      ),
-    }
-    res.json(mapData);
+    res.json(await queries.getMapRepr(req.params.mapid, queries));
   });
 
   router.post("/new", async (req, res) => {
@@ -35,14 +25,16 @@ module.exports = queries => {
   router.put('/:mapid/save', async (req, res) => {
     try {
       const { mapid } = req.params
-      const { map, points } = req.body;
+      const { mapInfo, points, } = req.body;
 
-      console.log('mapid: ', mapid)
-      console.log('body: ', req.body)
-      console.log('map: ', map)
-      console.log('points: ', points)
+      console.log(req.body)
 
-      await queries.updateMapInfo(mapid, map)
+      // console.log('mapid: ', mapid)
+      // console.log('body: ', req.body)
+      // console.log('map: ', mapInfo)
+      // console.log('points: ', points)
+
+      await queries.updateMapInfo(mapid, mapInfo)
       {
         const pointids = points.map((point) => point.id)
         await queries.deletePointsNotIncluded(pointids, mapid)
@@ -51,8 +43,7 @@ module.exports = queries => {
       await points.forEach(async (point) => {
         await queries.updatePointInfo(point.id, point)
       })
-
-      res.status(200).send('saved!');
+      res.json(await queries.getMapRepr(mapid, queries));
     } catch (err) {
       res.status(400).send('oh noes')
       throw err;
