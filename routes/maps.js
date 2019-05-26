@@ -1,6 +1,7 @@
 "use strict"
 const express = require('express');
 const router  = express.Router();
+const path = require('path');
 
 module.exports = (queries, dataHelpers) => {
   router.get('/', async (req, res) => {
@@ -15,9 +16,9 @@ module.exports = (queries, dataHelpers) => {
     try {
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
-      console.log(req.body)
+      console.log(req.body);
       await queries.newMap(req.body);
-      res.redirect('/maps/' + mapid)
+      res.redirect('/maps/' + mapid);
     } catch (error) {
       res.status(400).send('something went wrong with the query!');
       throw error;
