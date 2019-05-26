@@ -2,16 +2,21 @@ $(document).ready(function() {
 
   $( "nav#nav-bar span.header" ).click(function(){
       $.get("/", function(data){
-        window.location.href = "/";
+        window.location.href = this.url;
         $("body").html(data);
       });
   });
 
   $( "#login-button" ).click(function(){
+    $.get("/current", function(userid){
+      if(userid){
+        $.post("/logout");
+      }
+    });
     $.get("/", function(data){
-        window.location.href = "/";
-        $("body").html(data);
-      });
+      window.location.href = this.url;
+      $("body").html(data);
+    });
   });
 
   $( "#create-button" ).click(function(){
@@ -21,12 +26,13 @@ $(document).ready(function() {
   });
 
   $( "#user-button" ).click(function(){
-    //not complete
-    $.get("/current", function(data){
-      $.get(`/users/${data.userid}`, function(data2){
-        window.location.href = `/users/${data.userid}`;
-        $("body").html(data);
-      });
+    $.get("/current", function(userid){
+      // if(userid){
+        $.get(`/users/${userid}`, function(data){
+          window.location.href = this.url;
+          $("body").html(data);
+        });
+      // }
     });
   });
 

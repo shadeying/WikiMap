@@ -17,6 +17,12 @@ nav#nav-bar{
   z-index: 20;
   text-align: center;
 
+  span.user {
+    margin-top: 2vh;
+    float:left;
+    font-size: 200%;
+  }
+
   span.header {
     font-size: 250%;
     line-height: 170%;

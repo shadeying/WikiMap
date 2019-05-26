@@ -70,10 +70,6 @@ app.get('/maps/:mapid', (req, res) => {
   res.render("index");
 });
 
-app.get('/users/:userid', (req, res) => {
-  res.render();
-});
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

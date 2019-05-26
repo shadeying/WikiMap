@@ -1,6 +1,9 @@
 <script type="text/javascript" src="/scripts/nav.js"></script>
 
 <nav id="nav-bar">
+  <% if(loginUser){ %>
+        <span class="user"><i class="fa fa-user-circle-o"></i> <%= loginUser %></span>
+  <% } %>
   <span class="header"><i class="fa fa-object-group"></i> WikiMap</span>
   <button id="user-button" class="hvr-grow">
     <i class="fa fa-map-marker"></i>
