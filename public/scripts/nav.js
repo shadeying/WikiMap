@@ -26,14 +26,13 @@ $(document).ready(function() {
   });
 
   $( "#user-button" ).click(function(){
-    //not complete
-    $.get("/current", function(data){
-      window.location.href = `/users/${data.userid}`;
-      $.get(`/users/${data.userid}`,
-        function(data2){
-        window.location.href = `/users/${data.userid}`;
-        $("body").html(data);
-      });
+    $.get("/current", function(userid){
+      // if(userid){
+        $.get(`/users/${userid}`, function(data){
+          window.location.href = this.url;
+          $("body").html(data);
+        });
+      // }
     });
   });
 
