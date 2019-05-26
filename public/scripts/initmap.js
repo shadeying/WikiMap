@@ -1,4 +1,5 @@
-const initMapFactory = (mapid) => {
+console.log('initMap is read')
+const initMapFactory = function (mapid) {
   return function () {
     // Create a new StyledMapType object, passing it an array of styles,
     // and the name to be displayed on the map type control.
@@ -233,34 +234,59 @@ const initMapFactory = (mapid) => {
       });
     }
 
-    function renderPage(mapObject) {
+    // initializes field, and registers cb as a handler on input change
+    const initField = (field, startValue, cb, usesVal=false) => {
+      usesVal ? field.val(startValue) : field.text(startValue)
+      field
+        .attr('contenteditable', true)
+        .on('keyup change paste', () => {cb(field.text())});
+    }
+
+    function initPage(mapObject) {
+
 
       const { mapInfo, points, userFavorites} = mapObject;
-      const titleElement = $("span.maptitle").text(mapObject.mapInfo.name)
-        .attr('contenteditable', true)
-        .on('keyup change paste', function(event) {
-          mapInfo.title =  titleElement.text();
-          console.log(mapInfo.title)
-        })
-        console.log('title text handler added')
+      const titleElement = $("span.maptitle")
+      initField(titleElement, mapInfo.title, text => mapObject.mapInfo.title);
 
-      const descriptionElement = $("p.mapdescription")
-        .text(mapObject.mapInfo.description)
-        .attr('contenteditable', true)
-        .on('keyup cnage paste', function(event) {
-          mapInfo.description =  descriptionElement.text();
-          console.log(mapInfo.title)
-        })
+      initField(
+        $("p.mapdescription"),
+        mapInfo.description,
+        text => mapObject.mapInfo.description
+      )
 
-      mapObject.points.forEach(pointObject => {
-        const pointTitle = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
-        const pointDescription = $("<section>").addClass("edit-description").append($(`<h2>Description</h2><textarea name="text" placeholder="Description"></textarea>`));
-        const image = $("<section>").addClass("imageURL").append($(`<h2>Image URL</h2><textarea name="text" placeholder="Image URL"></textarea>`));
-        const remove = $(`<div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>`);
+      const locations = $('.locations')
 
-        const placeHolder = $("<div>").addClass("point hvr-grow").attr("id", pointObject.id).text(pointObject.title);
-        const editBox = $(`<div class="edit-point" style="display: none;"></div>`).append(pointTitle, pointDescription, image, remove);
-        const container = $("<section>").addClass("point-container").attr("id", pointObject.lat).append(placeHolder, editBox).appendTo("div.locations");
+      mapObject.points.forEach((point, index) => {
+        const pointElement = $('<article>');
+        pointElement
+          .load('/content/point-template.html', () => {
+            console.log(point.title)
+            initField(
+              pointElement.find('.point__title'),
+              point.title,
+              text => points[index].title,
+            )
+            initField(
+              pointElement.find('.point__description'),
+              point.description,
+              text => points[index].description,
+            )
+            initField(
+              pointElement.find('.point__lat'),
+              point.lat,
+              text => points[index].lat,
+              true
+            )
+            initField(
+              pointElement.find('.point__lng'),
+              point.lng,
+              text => points[index].lng,
+              true
+            )
+            locations.append(pointElement)
+            console.log(pointElement[0])
+          });
       });
     }
 
@@ -305,7 +331,7 @@ const initMapFactory = (mapid) => {
 
     console.log('getting')
     $.get(`/api/maps/${mapid}`)
-      .done(renderPage)
+      .done(initPage)
       .fail(() => alert('request error'));
 
     let click = 0;
