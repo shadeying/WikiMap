@@ -19,59 +19,26 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
     <script type="text/javascript" src="/scripts/user.js"></script>
     <script type="text/javascript" src="/scripts/nav.js"></script>
+
+
+    <script type="text/javascript" src="/scripts/user/main.js"></script>
 
   </head>
 
   <body>
     <% include partials/nav %>
-    <header class="username"><i class="fa fa-user-circle-o"></i> Alice</header>
-    <div class="map-container">
-      <section class="owned-container hvr-grow">
-        <header class="title"><i class="fa fa-map-marker"></i> My Maps</header>
-        <div class="my-map">
-          <header>Title</header>
-          <p>Description</p>
-        </div>
-        <div class="my-map">
-          <header>Title</header>
-          <p>Description</p>
-        </div>
-        <div class="my-map">
-          <header>Title</header>
-          <p>Description</p>
-        </div>
-      </section>
 
-      <section class="favorite-container">
-        <header class="title"><i class="fa fa-star"></i> Favourite</header>
-        <div class="favorite-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-        <div class="favorite-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-      </section>
+    <h1> Owned Maps</h1>
+    <%- include('partials/mapCollection', {maps: maps.owned, category: 'owned'}) %>
 
-      <section class="edited-container">
-        <header class="title"><i class="fa fa-pencil"></i> Contributed</header>
-        <div class="edited-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-        <div class="edited-map">
-          <header>Title</header>
-          <p>Description</p>
-          <footer>Owner: Charlie</footer>
-        </div>
-      </section>
-    </div>
+    <h1> Favorited Maps</h1>
+    <%- include('partials/mapCollection', {maps: maps.favorited, category: 'favorited'}) %>
+
+    <h1> Edited MAps </h1>
+    <%- include('partials/mapCollection', {maps: maps.edited, category: 'favorited'}) %>
   </body>
 </html>
 <!-- {

@@ -3,7 +3,7 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (queries) => {
+module.exports = (queries, dataHelpers) => {
 
   router.get("/", (req, res) => {
     console.log('get got')
@@ -17,10 +17,7 @@ module.exports = (queries) => {
     const  { userid  } = req.params;
     try {
       console.log('userid: ', userid);
-      const owned = await queries.getUsersMaps(userid);
-      const favorited = await queries.getFavoritedMaps(userid);
-      const edited = await queries.getEditedMaps(userid);
-      res.json({ owned, favorited, edited })
+      res.json(await dataHelpers.getMapsForUsersPage(userid))
     } catch (err) {
       res.status(400).send('something went wrong!')
       throw err

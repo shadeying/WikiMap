@@ -2,13 +2,13 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = queries => {
+module.exports = (queries, dataHelpers) => {
   router.get('/', async (req, res) => {
     res.json(await queries.getMaps());
   })
 
   router.get("/:mapid", async (req, res) => {
-    res.json(await queries.getMapRepr(req.params.mapid, queries));
+    res.json(await dataHelpers.getMapRepr(req.params.mapid, queries));
   });
 
   router.post("/new", async (req, res) => {

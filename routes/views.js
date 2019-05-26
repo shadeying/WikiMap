@@ -3,26 +3,27 @@ const express = require('express');
 const router  = express.Router();
 const path = require('path');
 
+module.exports = (queries, dataHelpers) => {
 
-module.exports = () => {
+  router.get('/', (req, res) => {
+    res.redirect('/maps')
+  })
 
-  router.get("/", (req, res) => {
-    res.render("main");
+  router.get('/maps/:mapid', (req, res) => {
+    res.render("index", { mapid: req.params.mapid });
   });
 
-  router.get('/map', (req, res) => {
-    res.render("index");
+  router.get('/maps', async (req, res) => {
+    const maps = await queries.getMaps();
+    console.log(maps)
+    res.render('maps', { maps });
   });
 
-  router.get('/maps', (req, res) => {
-    res.render("maps");
-  });
-
-  router.get('/users/:userid', (req, res) => {
-    const templateVars = {
-      userid: req.params.userid
-    };
-    res.render('user', templateVars);
+  router.get('/users/:userid', async (req, res) => {
+    const { userid } = req.params
+    const maps = await dataHelpers.getMapsForUsersPage(userid)
+    console.log(maps);
+    res.render('user', {maps, userid});
   });
 
   return router;

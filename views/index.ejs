@@ -21,6 +21,12 @@
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/initmap.js"></script>
+
+    <script type="text/javascript">
+      var userid = '<%= userid %>'
+      // returns initMap function with mapid in scope to make AJAX request
+      var initMap = initMapFactory(Number( <%= mapid %>));
+    </script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
     <script type="text/javascript" src="/scripts/nav.js"></script>
 
@@ -44,7 +50,7 @@
     <div class="body-container">
       <button id="edit-button" class="hvr-grow"><i class="fa fa-edit"></i> Edit Map</button>
       <div class="edit" style="display: none;">
-        <form method="POST" action="/api/maps/:mapid/save?_method=PUT">
+        <form method="POST" action="/api/maps/<%= mapid %>/save">
           <section class="edit-title">
             <h2>Title</h2>
             <input type="text" name="maptitle" placeholder="New Map Title">
