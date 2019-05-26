@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css?family=Alegreya:400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/styles/nav.css">
-    <link rel="stylesheet" href="/styles/info-window.css">
     <link rel="stylesheet" href="/styles/user.css">
 
     <!-- External JS -->
@@ -23,22 +22,27 @@
     <script type="text/javascript" src="/scripts/user.js"></script>
     <script type="text/javascript" src="/scripts/nav.js"></script>
 
-
-    <script type="text/javascript" src="/scripts/user/main.js"></script>
-
   </head>
 
   <body>
     <% include partials/nav %>
+    <header class="username"><i class="fa fa-user-circle-o"></i> <%= userid %></header>
+    <div class="map-container">
+      <section class="owned-container">
+        <header class="title"><i class="fa fa-map-marker"></i> My Maps</header>
+          <%- include('partials/mapCategorized', {maps: maps.owned, category: 'owned'}) %>
+      </section>
 
-    <h1> Owned Maps</h1>
-    <%- include('partials/mapCollection', {maps: maps.owned, category: 'owned'}) %>
+      <section class="favorite-container">
+        <header class="title"><i class="fa fa-star"></i> Favourite</header>
+          <%- include('partials/mapCategorized', {maps: maps.favorited, category: 'favorited'}) %>
+      </section>
 
-    <h1> Favorited Maps</h1>
-    <%- include('partials/mapCollection', {maps: maps.favorited, category: 'favorited'}) %>
-
-    <h1> Edited MAps </h1>
-    <%- include('partials/mapCollection', {maps: maps.edited, category: 'favorited'}) %>
+      <section class="edited-container">
+        <header class="title"><i class="fa fa-pencil"></i> Contributed</header>
+          <%- include('partials/mapCategorized', {maps: maps.edited, category: 'favorited'}) %>
+      </section>
+    </div>
   </body>
 </html>
 <!-- {
