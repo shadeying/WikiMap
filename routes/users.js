@@ -10,7 +10,8 @@ module.exports = (queries, dataHelpers) => {
   });
 
   router.get('/current', (req, res) => {
-    res.json(req.session.userid);
+    if (req.session)
+    res.json(req.session.userid || null);
   })
 
   router.get('/:userid', async (req, res) => {
@@ -29,7 +30,12 @@ module.exports = (queries, dataHelpers) => {
     req.session.userid = req.params.userid;
     console.log('userid session: ', req.session.userid);
     res.status(200).end('set cookie');
-  })
+  });
+
+  router.post('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/');
+  });
 
 
   return router;

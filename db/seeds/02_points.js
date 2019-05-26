@@ -8,9 +8,10 @@ exports.seed = function(knex, Promise) {
           mapid: '1',
           title: 'point_a1',
           editorid: 'alice',
-          lat: 55.647,
-          lng: 37.581,
-          description: 'this is point a1'
+          lat: 49.350792406932015,
+          lng: -123.06817161865234,
+          image: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+          description: 'this is point a1',
         },
         {
           mapid: '1',

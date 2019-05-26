@@ -20,8 +20,9 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/initmap.js"></script>
 
+    <script type="text/javascript" src="/scripts/mapState.js"></script>
+    <script type="text/javascript" src="/scripts/initmap.js"></script>
     <script type="text/javascript">
       var userid = '<%= userid %>'
       // returns initMap function with mapid in scope to make AJAX request
@@ -48,22 +49,13 @@
       <div id="map"></div>
     </div>
     <div class="body-container">
-      <button id="edit-button" class="hvr-grow"><i class="fa fa-edit"></i> Edit Map</button>
-      <form class="edit" style="display: none;">
-        <section class="edit-title">
-          <h2>Title</h2>
-          <input type="text" name="maptitle" placeholder="New Map Title">
-        </section>
-        <section class="edit-mapdescription">
-          <h2>Description</h2>
-          <textarea name="text" placeholder="New Description"></textarea>
-        </section>
-        <button class="save edit__save" > <i class="fa fa-check-square-o"></i>  Save</button>
+      <form class="save">
+        <button class="button__save" type="submit">save</button>
       </form>
-
       <div class="info">
         <article class="pointlist">
           <header><i class="fa fa-map-pin"></i> Places</header>
+          <button class="info__add-point" type="button">add point</button>
           <div class="locations"></div>
         </article>
       </div>

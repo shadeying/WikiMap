@@ -18,8 +18,9 @@ module.exports = (queries, dataHelpers) => {
     const maps = await queries.getMaps();
     console.log(maps);
     const loginUser = req.session.userid;
-    res.render('maps', { maps, "loginUser":loginUser });
+    res.render('maps', { maps, loginUser });
   });
+
 
   router.get('/users/:userid', async (req, res) => {
     const { userid } = req.params
@@ -27,11 +28,6 @@ module.exports = (queries, dataHelpers) => {
     const loginUser = req.session.userid;
     console.log(maps);
     res.render('user', {maps, userid, "loginUser":loginUser});
-  });
-
-  router.post('/logout', (req, res) => {
-    req.session = null;
-    res.redirect('/');
   });
 
   return router;

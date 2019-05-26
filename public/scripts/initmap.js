@@ -1,8 +1,9 @@
 console.log('initMap is read')
 const initMapFactory = function (mapid) {
-  return function () {
+  const initMap = () => {
+    console.log('init!');
     // Create a new StyledMapType object, passing it an array of styles,
-    // and the name to be displayed on the map type control.
+    // and the name to be d,isplayed on the map type control.
     var styledMapType = new google.maps.StyledMapType(
       [{
           elementType: 'geometry',
@@ -192,111 +193,6 @@ const initMapFactory = function (mapid) {
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
 
-    function addMarker(position, title) {
-      const marker = new google.maps.Marker({
-        "position": position,
-        "map": map,
-        "title": title
-      });
-      return marker;
-    }
-
-    function createContentString(object) {
-      const title = $("<h1>").text(object.title);
-      const description = $("<p>").text(object.description);
-      const image = $(`<img src=${object.image}>`);
-      const box = $("<div>").addClass("info-window").append(title, description, image);
-
-      return $("<div>").append(box).html();
-    }
-
-    function addInfoWindow(contentString) {
-      const infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-      return infowindow;
-    }
-
-    function renderPoints(pointsArray) {
-      pointsArray.forEach(function (pointObject) {
-        const latitude = pointObject.lat;
-        const longitude = pointObject.lng;
-        const position = {
-          lat: latitude,
-          lng: longitude
-        };
-        const title = pointObject.title;
-        const marker = addMarker(position, title);
-        const infowindow = addInfoWindow(createContentString(pointObject));
-        marker.addListener('click', function () {
-          infowindow.open(map, marker);
-        });
-      });
-    }
-
-    // initializes field, and registers cb as a handler on input change
-    const initField = (field, startValue, cb, usesVal=false) => {
-      usesVal ? field.val(startValue) : field.text(startValue)
-      field
-        .attr('contenteditable', true)
-        .on('keyup change paste', () => {cb(field.text())});
-    }
-
-    function initPage(mapObject) {
-
-
-      const { mapInfo, points, userFavorites} = mapObject;
-      const titleElement = $("span.maptitle")
-      initField(titleElement, mapInfo.title, text => mapObject.mapInfo.title);
-
-      initField(
-        $("p.mapdescription"),
-        mapInfo.description,
-        text => mapObject.mapInfo.description
-      )
-
-      const locations = $('.locations')
-
-      mapObject.points.forEach((point, index) => {
-        const pointElement = $('<article>');
-        pointElement
-          .load('/content/point-template.html', () => {
-            console.log(point.title)
-            initField(
-              pointElement.find('.point__title'),
-              point.title,
-              text => points[index].title,
-            )
-            initField(
-              pointElement.find('.point__description'),
-              point.description,
-              text => points[index].description,
-            )
-            initField(
-              pointElement.find('.point__lat'),
-              point.lat,
-              text => points[index].lat,
-              true
-            )
-            initField(
-              pointElement.find('.point__lng'),
-              point.lng,
-              text => points[index].lng,
-              true
-            )
-            locations.append(pointElement)
-            console.log(pointElement[0])
-          });
-      });
-    }
-
-    $('edit__save').on('click', function () {
-      $.put(`/api/maps/${mapid}/save`, {
-        data: mapObject,
-        success: () => alert('we did it bois'),
-      })
-    })
-
     const mapObject = {
       "mapInfo": {
         "mapid": 1,
@@ -329,109 +225,19 @@ const initMapFactory = function (mapid) {
       ]
     }
 
-    console.log('getting')
     $.get(`/api/maps/${mapid}`)
-      .done(initPage)
+      .done(data => initMapState(data, map, mapid))
       .fail(() => alert('request error'));
 
-    let click = 0;
-    let markers = [];
 
-    $("#edit-button").click(function () {
-      $("div.edit").slideToggle();
-      $("input[name=maptitle]").focus();
-      if (click === 0) {
-        click++;
-      } else {
-        click--;
+    map.addListener('click', function (event) {
+      const { latLng } = event;
+      const position = {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
       }
-
-      const mapListener = map.addListener('click', function (event) {
-        const latitude = event.latLng.lat();
-        const longitude = event.latLng.lng();
-        const position = {
-          lat: latitude,
-          lng: longitude
-        };
-        const marker = addMarker(position);
-        markers.push(marker.getPosition());
-
-        const title = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
-        const description = $("<section>").addClass("edit-description").append($(`<h2>Description</h2><textarea name="text" placeholder="Description"></textarea>`));
-        const image = $("<section>").addClass("imageURL").append($(`<h2>Image URL</h2><textarea name="text" placeholder="Image URL"></textarea>`));
-        const remove = $(`<div id="delete-button"><i class="fa fa-trash"></i> Delete Place :|</div>`);
-
-        const placeHolder = $("<div>").addClass("point hvr-grow");
-        const editBox = $("<div>").addClass("edit-point").append(title, description, image, remove);
-        const container = $("<section>").addClass("point-container").attr("id", latitude).append(placeHolder, editBox).appendTo("div.locations");
-      });
-
-      if (click === 0) {
-        google.maps.event.clearListeners(map);
-      }
-    });
-
-    function check(val, ref) {
-      if (val) {
-        return val;
-      }
-      return ref;
-    }
-
-    $(document).on("click", "button.save-button", function (event) {
-      event.preventDefault();
-      const mapName = $(".edit-title input[name=maptitle]").val();
-      const mapDescription = $(".edit-mapdescription textarea[name=text]").val();
-      const points = [];
-      const oldPointArray = data.points;
-
-      markers.forEach(marker => {
-        var index = 0;
-        for (let i = 0; i < oldPointArray.length; i++) {
-          if (marker.lat() == oldPointArray[i].lat) {
-            index = i;
-            break;
-          }
-        }
-        const pointID = oldPointArray[index].id;
-        const pointTitle = $("#" + marker.lat()).find(".edit-title input[name=pointtitle]").val();
-        const pointDescription = $("#" + marker.lat()).find(".edit-description textarea[name=text]").val();
-        const pointImage = $("#" + marker.lat()).find(".imageURL textarea[name=text]").val();
-
-        const pointObject = {
-          title: check(pointTitle, oldPointArray[index].title),
-          image: check(pointImage, oldPointArray[index].image),
-          // editorid: req.session.userid,
-          description: check(pointDescription, oldPointArray[index].description),
-          lat: marker.lat(),
-          lng: marker.lng()
-        };
-        if (pointID) {
-          pointObject.id = pointID;
-        }
-        points.push(pointObject);
-      });
-
-      const object = {
-        "mapInfo": {
-          "mapid": data.mapInfo.mapid,
-          "ownerid": data.mapInfo.ownerid,
-          "name": check(mapName, data.mapInfo.name),
-          "description": check(mapDescription, data.mapInfo.description)
-        },
-        "points": points,
-        "userFavorites": data.userFavorites
-      }
-
-      $.ajax({
-        url: `/api/maps/${mapid}/save`,
-        method: 'PUT',
-      })
-        .done(() => {
-          $("input").val("");
-          $("textarea").val("");
-          $("div.edit").slideUp();
-        });
-    });
+      console.log(position);
+    })
   }
+  return initMap;
 }
