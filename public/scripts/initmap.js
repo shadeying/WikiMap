@@ -290,12 +290,12 @@ const initMapFactory = function (mapid) {
       });
     }
 
-    // function loadMap(){
-    //   $.get("/map", function(data){
-    //     renderPage(data);
-    //     var data = data;
-    //   });
-    // }
+    $('edit__save').on('click', function () {
+      $.put(`/api/maps/${mapid}/save`, {
+        data: mapObject,
+        success: () => alert('we did it bois'),
+      })
+    })
 
     const mapObject = {
       "mapInfo": {
