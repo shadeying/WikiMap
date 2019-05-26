@@ -65,6 +65,42 @@ body {
       span {
         @extend %span;
       }
+
+      span#sign-up-form {
+        form {
+          margin: auto;
+
+          input {
+            border-radius: 20px;
+            padding-left: 15px;
+          }
+          button {
+            border-radius: 20px;
+            background-color: $smokyblack;
+            color: $seashell;
+            padding: 10px;
+            font-size: 3vw;
+          }
+        }
+      }
+
+      span#login-form {
+        form {
+          margin: auto;
+
+          input {
+            border-radius: 20px;
+            padding-left: 15px;
+          }
+          button {
+            border-radius: 20px;
+            background-color: $smokyblack;
+            color: $seashell;
+            padding: 10px;
+            font-size: 3vw;
+          }
+        }
+      }
     }
   }
 

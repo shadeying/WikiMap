@@ -1,11 +1,15 @@
 $(document).ready(function() {
 
   $( "span.sign-up" ).click(function(){
-    $.get("/users/:userid");
+    $( "span#sign-up-form" ).toggle( "slide" );
+    $( "span.login" ).toggle( "slide" );
+    $( "span.new-map" ).toggle( "slide" );
   });
 
   $( "span.login" ).click(function(){
-
+    $( "span#login-form" ).toggle( "slide" );
+    $( "span.sign-up" ).toggle( "slide" );
+    $( "span.new-map" ).toggle( "slide" );
   });
 
   $( "span.new-map" ).click(function(){

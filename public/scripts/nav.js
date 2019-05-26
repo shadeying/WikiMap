@@ -1,13 +1,17 @@
 $(document).ready(function() {
 
   $( "nav#nav-bar span.header" ).click(function(){
-      $.get("/");
+      $.get("/", function(data){
+        window.location.href = "/";
+        $("body").html(data);
+      });
   });
 
   $( "#login-button" ).click(function(){
-    $.get("/current", function(data){
-      $.get(`/:${data.userid}`);
-    });
+    $.get("/", function(data){
+        window.location.href = "/";
+        $("body").html(data);
+      });
   });
 
   $( "#create-button" ).click(function(){
@@ -17,8 +21,12 @@ $(document).ready(function() {
   });
 
   $( "#user-button" ).click(function(){
+    //not complete
     $.get("/current", function(data){
-      $.get(`/users/:${data.userid}`);
+      $.get(`/users/${data.userid}`, function(data2){
+        window.location.href = `/users/${data.userid}`;
+        $("body").html(data);
+      });
     });
   });
 

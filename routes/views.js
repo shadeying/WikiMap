@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = (queries, dataHelpers) => {
 
   router.get('/', (req, res) => {
-    res.render('main');
+    res.redirect('/maps');
   })
 
   router.get('/maps/:mapid', (req, res) => {
