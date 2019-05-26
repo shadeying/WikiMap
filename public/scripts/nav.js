@@ -18,7 +18,7 @@ $(document).ready(function() {
 
   $( "#user-button" ).click(function(){
     $.get("/current", function(data){
-      $.get(`/:${data.userid}`);
+      $.get(`/users/:${data.userid}`);
     });
   });
 

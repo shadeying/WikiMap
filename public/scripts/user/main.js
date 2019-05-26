@@ -13,3 +13,7 @@ $(document).ready(function() {
   });
 
 });
+
+// [{"mapid":1,"ownerid":"alice","name":"a","description":"this is map a"},
+// {"mapid":2,"ownerid":"bob","name":"b","description":"this is map b"},
+// {"mapid":3,"ownerid":"charlie","name":"c","description":"this is map c"}]
