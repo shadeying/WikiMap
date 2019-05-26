@@ -19,6 +19,8 @@ $red: #E84855;
   margin: 20px 30px;
   flex-grow: 1;
   border-radius: 20px;
+  align-items: flex-end;
+  text-align: center;
 }
 
 html {
@@ -63,6 +65,42 @@ body {
       span {
         @extend %span;
       }
+
+      span#sign-up-form {
+        form {
+          margin: auto;
+
+          input {
+            border-radius: 20px;
+            padding-left: 15px;
+          }
+          button {
+            border-radius: 20px;
+            background-color: $smokyblack;
+            color: $seashell;
+            padding: 10px;
+            font-size: 3vw;
+          }
+        }
+      }
+
+      span#login-form {
+        form {
+          margin: auto;
+
+          input {
+            border-radius: 20px;
+            padding-left: 15px;
+          }
+          button {
+            border-radius: 20px;
+            background-color: $smokyblack;
+            color: $seashell;
+            padding: 10px;
+            font-size: 3vw;
+          }
+        }
+      }
     }
   }
 
@@ -75,6 +113,37 @@ body {
 
     div {
       @extend %div;
+
+      img {
+        height: 100%;
+        width: 100%;
+        border-radius: 20px;
+      }
+
+      footer {
+        background-color: $smokyblack;
+        color: $seashell;
+        opacity: 0.7;
+        padding: 15px;
+        font-size: 200%;
+        border-radius: 20px;
+        width: 100%;
+
+        button.map-card__button {
+          background-color: $smokyblack;
+          color: $seashell;
+          border: none;
+          outline: none;
+          box-shadow: none;
+          width: 100%;
+
+        }
+
+        i {
+          margin-left: 20px;
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
@@ -83,4 +152,13 @@ span:hover {
   cursor: pointer;
   color: $red;
   opacity: 1;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+form.all.map-card {
+  width: 100%;
+  margin-top: -81px;
 }

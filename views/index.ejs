@@ -28,6 +28,7 @@
       var initMap = initMapFactory(Number( <%= mapid %>));
     </script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
+    <script type="text/javascript" src="/scripts/nav.js"></script>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmV2d1UF5pCRkcGjW68hCKYmIXjktEX7w&callback=initMap">
@@ -40,7 +41,7 @@
       <article class="map-info">
           <header class="map-title">
             <span class="maptitle"></span>
-            <form method="POST" action="/api/maps/:mapid/fav/"><button type="submit" class="fav-button"><i class="fa fa-star"></i></button></form>
+            <form method="POST" action="/api/maps/<%= mapid %>/fav/"><button type="submit" class="fav-button"><i class="fa fa-star"></i></button></form>
           </header>
           <p class="mapdescription"></p>
       </article>

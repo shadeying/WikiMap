@@ -33,16 +33,20 @@ nav#nav-bar{
     margin-left: 20px;
     font-size: 200%;
     border: none;
+    outline: none;
+    box-shadow: none;
   }
 }
 
 nav#nav-bar button:hover {
   color: $tulip;
   opacity: 1;
+  cursor: pointer;
 }
 
 nav#nav-bar span.header:hover {
   color: $tulip;
+  cursor: pointer;
 }
 
 .hvr-grow {
