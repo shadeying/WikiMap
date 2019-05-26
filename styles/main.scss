@@ -67,14 +67,17 @@ body {
       }
 
       span#sign-up-form {
-        form {
+        div {
           margin: auto;
+          display:inline-flex;
+          width: 100%;
 
           input {
             border-radius: 20px;
             padding-left: 15px;
           }
           button {
+            margin-left: 15px;
             border-radius: 20px;
             background-color: $smokyblack;
             color: $seashell;
@@ -85,14 +88,17 @@ body {
       }
 
       span#login-form {
-        form {
+        div {
           margin: auto;
+          display:inline-flex;
+          width: 100%;
 
           input {
             border-radius: 20px;
             padding-left: 15px;
           }
           button {
+            margin-left: 15px;
             border-radius: 20px;
             background-color: $smokyblack;
             color: $seashell;
@@ -160,5 +166,5 @@ button:hover {
 
 form.all.map-card {
   width: 100%;
-  margin-top: -81px;
+  margin-top: -82px;
 }

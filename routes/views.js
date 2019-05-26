@@ -7,7 +7,7 @@ module.exports = (queries, dataHelpers) => {
 
   router.get('/', (req, res) => {
     res.redirect('/maps');
-  })
+  });
 
   router.get('/maps/:mapid', (req, res) => {
     res.render("index", { mapid: req.params.mapid });
@@ -24,6 +24,23 @@ module.exports = (queries, dataHelpers) => {
     const maps = await dataHelpers.getMapsForUsersPage(userid)
     console.log(maps);
     res.render('user', {maps, userid});
+  });
+
+  router.get('/:userid/login', async (req, res) => {
+    console.log('userid: ', req.params.userid);
+    req.session.userid = req.params.userid;
+    console.log('userid session: ', req.session.userid);
+    res.status(200).end('set cookie');
+  });
+
+  router.get('/current', (req, res) => {
+    res.json(req.session.userid);
+  });
+
+  router.post('/logout', (req, res) => {
+    req.session = null;
+    res.status(200).end('cookie removed');
+    res.redirect('/');
   });
 
   return router;

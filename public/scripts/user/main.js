@@ -16,6 +16,15 @@ $(document).ready(function() {
     $.get("/new");
   });
 
+  $( "button.login" ).click(function(){
+    const username = $("input[name=userid]").val();
+    $.get(`/users/${username}`, function(data){
+        $.get(`/${username}/login`);
+        window.location.href = this.url;
+        $("body").html(data);
+      });
+  })
+
 });
 
 // [{"mapid":1,"ownerid":"alice","name":"a","description":"this is map a"},
