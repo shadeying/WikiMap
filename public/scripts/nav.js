@@ -11,12 +11,11 @@ $(document).ready(function() {
     $.get("/current", function(userid){
       if(userid){
         $.post("/logout");
-      }else{
-        $.get("/", function(data){
-          window.location.href = this.url;
-          $("body").html(data);
-        });
       }
+    });
+    $.get("/", function(data){
+      window.location.href = this.url;
+      $("body").html(data);
     });
   });
 

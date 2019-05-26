@@ -39,7 +39,6 @@ module.exports = (queries, dataHelpers) => {
 
   router.post('/logout', (req, res) => {
     req.session = null;
-    res.status(200).end('cookie removed');
     res.redirect('/');
   });
 
