@@ -1,5 +1,7 @@
-    <button class="<%= category %> map-card">
-      <label class="map-card__name"> <%= map.name %> </label>
-      <span class="map-card__owner"> <%= map.owner %> </span>
-      <p1 class="map-card__description"> <%= map.description %> </p1>
-    </button>
+    <form class="<%= category %> map-card" method="get" action="/maps/<%= map.mapid %>">
+      <button class="map-card__button" type="submit">
+        <label class="map-card__name"> <%= map.name %> </label>
+        <span class="map-card__owner"> <%= map.ownerid %> </span>
+        <p1 class="map-card__description"> <%= map.description %> </p1>
+      </button>
+    </form>

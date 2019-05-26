@@ -24,8 +24,14 @@
 
   <body>
     <% include partials/nav %>
+
+    <h1> Owned Maps</h1>
     <%- include('partials/mapCollection', {maps: maps.owned, category: 'owned'}) %>
+
+    <h1> Favorited Maps</h1>
     <%- include('partials/mapCollection', {maps: maps.favorited, category: 'favorited'}) %>
+
+    <h1> Edited MAps </h1>
     <%- include('partials/mapCollection', {maps: maps.edited, category: 'favorited'}) %>
   </body>
 </html>

@@ -234,9 +234,23 @@ const initMapFactory = (mapid) => {
     }
 
     function renderPage(mapObject) {
-      renderPoints(mapObject.points);
-      const title = $("span.maptitle").text(mapObject.mapInfo.name);
-      const description = $("p.mapdescription").text(mapObject.mapInfo.description);
+
+      const { mapInfo, points, userFavorites} = mapObject;
+      const titleElement = $("span.maptitle").text(mapObject.mapInfo.name)
+        .attr('contenteditable', true)
+        .on('keyup change paste', function(event) {
+          mapInfo.title =  titleElement.text();
+          console.log(mapInfo.title)
+        })
+        console.log('title text handler added')
+
+      const descriptionElement = $("p.mapdescription")
+        .text(mapObject.mapInfo.description)
+        .attr('contenteditable', true)
+        .on('keyup cnage paste', function(event) {
+          mapInfo.description =  descriptionElement.text();
+          console.log(mapInfo.title)
+        })
 
       mapObject.points.forEach(pointObject => {
         const pointTitle = $("<section>").addClass("edit-title").append($(`<h2>Title</h2><input type="text" name="pointtitle" placeholder="Title">`));
