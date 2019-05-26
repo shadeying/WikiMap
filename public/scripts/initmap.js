@@ -1,6 +1,7 @@
 console.log('initMap is read')
 const initMapFactory = function (mapid) {
   const initMap = () => {
+    console.log('init!');
     // Create a new StyledMapType object, passing it an array of styles,
     // and the name to be d,isplayed on the map type control.
     var styledMapType = new google.maps.StyledMapType(
@@ -188,20 +189,9 @@ const initMapFactory = function (mapid) {
       }
     });
 
-
-
     //Associate the styled map with the MapTypeId and set it to display.
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
-
-    function addMarker(position, title) {
-      const marker = new google.maps.Marker({
-        position,
-        map,
-        title,
-      });
-      return marker;
-    }
 
     const mapObject = {
       "mapInfo": {
@@ -236,28 +226,9 @@ const initMapFactory = function (mapid) {
     }
 
     $.get(`/api/maps/${mapid}`)
-      .done(data => initMapState(data, map))
+      .done(data => initMapState(data, map, mapid))
       .fail(() => alert('request error'));
 
-    $("#edit-button").click(function () {
-      $("div.edit").slideToggle();
-      $("input[name=maptitle]").focus();
-      if (click === 0) {
-        click++;
-      } else {
-        click--;
-      }
-
-      const mapListener = map.addListener('click', function (event) {
-        const latitude = event.latLng.lat();
-        const longitude = event.latLng.lng();
-        const position = {
-          lat: latitude,
-          lng: longitude
-        };
-
-      });
-    });
 
     map.addListener('click', function (event) {
       const { latLng } = event;

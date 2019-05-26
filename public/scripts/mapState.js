@@ -1,4 +1,3 @@
-
 const initField = (field, startValue, cb, usesVal=false) => {
   usesVal ? field.val(startValue) : field.text(startValue)
   field
@@ -7,21 +6,21 @@ const initField = (field, startValue, cb, usesVal=false) => {
 }
 
 const emptyPointData = {
-  title: '',
-  description: '',
-  img: '',
-  lat: null,
-  lng: null,
+  title: 'title',
+  description: 'description',
+  image: 'url',
+  lat: 0,
+  lng: 0,
 }
 
 class Point {
   constructor(map, data={}) {
     this._state = {...emptyPointData, ...data};
     this._editable = false;
-    this._element = this._makePointElement();
+    this.element = this._makePointElement();
     this._marker = this._makePointMarker(map);
     this._infoWindow = this._addInfoWindow();
-    this._updatePosition = this._updatePosition.bind(this);
+    this._updatePosition = this.updatePosition.bind(this);
     this._addMarkerHandlers(map);
   }
 
@@ -29,8 +28,9 @@ class Point {
     return {... this._state};
   }
 
+
   _createInfoWindowMarkup() {
-    const {title, description, image} = this._state;
+    const {title, image} = this._state;
     const contentElement =  $(`
       <article><h1 class="title"></h1>
         <p class="description"></p>
@@ -42,23 +42,26 @@ class Point {
       .find('.title').text(title);
     contentElement
       .find('.image').attr('src', image);
-    return contentElement;
+    return contentElement.html();
   }
 
   _addInfoWindow() {
-    const markup = this._createInfoWindowMarkup().html();
+    const markup = this._createInfoWindowMarkup();
     console.log(markup);
     return new google.maps.InfoWindow({
       content: markup,
     })
   }
 
-  _updatePosition() {
-    const newPosition = {
-      lat: this._state.lat,
-      lng: this._state.lng,
-    }
+  updatePosition(newPosition) {
+    const { lat, lng } = newPosition;
+    this._state.lat = lat || this._state.lat
+    this._state.lng = lng || this._state.lng
     this._marker.setPosition(newPosition);
+  }
+
+  _updateInfoWindowContent() {
+    this._infoWindow.setContent(this._createInfoWindowMarkup());
   }
 
   _makePointElement() {
@@ -69,7 +72,10 @@ class Point {
         initField(
           pointElement.find('.point__title'),
           this._state.title,
-          text => this._state.title = text,
+          text => {
+            this._state.title = text
+            this._updateInfoWindowContent()
+          },
         );
         initField(
           pointElement.find('.point__description'),
@@ -79,18 +85,23 @@ class Point {
         initField(
           pointElement.find('.point__lat'),
           this._state.lat,
-          text => this._state.lat = Number(text),
+          text => {
+            const lat = Number(text)
+            this._updatePosition({ lat })
+          },
         );
         initField(
           pointElement.find('.point__lng'),
           this._state.lng,
           text => {
-            this._state.lng = Number(text);
-            this._updatePosition()
+            const lng = Number(text)
+            this.updatePosition({ lng });
           },
           true,
         );
       });
+
+
     console.log('pointElement: ', pointElement[0]);
     return pointElement;
   }
@@ -108,25 +119,34 @@ class Point {
   _addMarkerHandlers(map) {
     const marker = this._marker;
     marker.addListener('mouseover', (event) => {
-      console.log('handled like a boss')
       this._infoWindow.open(map, marker);
     });
+    marker.addListener('mouseout', event => {
+      this._infoWindow.close()
+    })
+
   }
 }
 
 const initPoints  = (pointsData, map, pointsContainer) => {
 
-  const addButton = pointsContainer.find('.add-point')
 
+  console.log('running initPoints')
   const newPoint = (data) => {
     const point = new Point(map, data || {});
-    pointsContainer.append(point._element);
+    pointsContainer.append(point.element);
     return point;
   }
 
-  addButton.on('click', (event) => {
-    newPoint()
-    .focus()
+  $('.info__add-point').click((event) => {
+    console.log('adding point')
+    const point = newPoint()
+    const listenerHandle = map.addListener('click', (event) => {
+      const {lat, lng} = event.latLng
+      point.updatePosition({lat: lat(), lng: lng()})
+      google.maps.event.removeListener(listenerHandle);
+    }
+    )
   })
 
   const points =  pointsData.map(newPoint);
@@ -134,25 +154,32 @@ const initPoints  = (pointsData, map, pointsContainer) => {
   return () => points.map(point => point.getData());
 }
 
-const initMapState = (mapObject, map) => {
+const initMapState = (mapObject, map, mapid) => {
 
   const { mapInfo, points: pointsData, userFavorites} = mapObject;
   const titleElement = $("span.maptitle")
+  console.log('title', mapInfo.name);
 
-  initField(titleElement, mapInfo.title, text => mapInfo.title);
+  initField(titleElement, mapInfo.name, text => mapInfo.name = text);
 
   initField(
     $("p.mapdescription"),
     mapInfo.description,
-    text => mapInfo.description
+    text => mapInfo.description = text,
   )
 
   const getPointsData = initPoints(pointsData, map, $('.locations'));
 
-  $('edit__save').on('click', function () {
-    $.put(`/api/maps/${mapid}/save`, {
-      data: { mapInfo, points: getPointsData()  },
-      success: () => alert('we did it bois'),
-    })
+  $('.button__save').click(function (event) {
+    event.preventDefault()
+    console.log('clicked save button')
+    const data = { mapInfo, points: getPointsData() }
+    console.log('data', data);
+    $.ajax({
+      method: 'PUT',
+      url: `/api/maps/${mapid}/save`,
+      data,
+      error: (err) => alert('oh no'),
+    });
   })
 }

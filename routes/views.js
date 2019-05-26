@@ -19,6 +19,7 @@ module.exports = (queries, dataHelpers) => {
     res.render('maps', { maps });
   });
 
+
   router.get('/users/:userid', async (req, res) => {
     const { userid } = req.params
     const maps = await dataHelpers.getMapsForUsersPage(userid)

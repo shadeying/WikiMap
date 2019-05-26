@@ -15,7 +15,7 @@ module.exports = (queries, dataHelpers) => {
     try {
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
-      console.log(req.body)
+      console.log('req.body', req.body);
       await queries.newMap(req.body);
       res.redirect('/maps/' + mapid)
     } catch (error) {
@@ -29,7 +29,7 @@ module.exports = (queries, dataHelpers) => {
       const { mapid } = req.params
       const { mapInfo, points, } = req.body;
 
-      console.log(req.body)
+      console.log('data: ', req.body)
 
       await queries.updateMapInfo(mapid, mapInfo)
       {
@@ -40,7 +40,7 @@ module.exports = (queries, dataHelpers) => {
       await points.forEach(async (point) => {
         await queries.updatePointInfo(point.id, point)
       })
-      res.json(await queries.getMapRepr(mapid, queries));
+      res.json(await dataHelpers.getMapRepr(mapid, queries));
     } catch (err) {
       res.status(400).send('oh noes')
       throw err;
