@@ -17,8 +17,12 @@ module.exports = (queries, dataHelpers) => {
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
       console.log(req.body);
-      await queries.newMap(req.body);
-      res.redirect('/maps/' + mapid);
+      if(!req.session.userid){
+        res.status(400).send('not logged in!');
+      }else{
+        await queries.newMap({"ownerid": req.session.userid, "name" :"New Map"});
+        res.redirect('/maps/' + mapid);
+      }
     } catch (error) {
       res.status(400).send('something went wrong with the query!');
       throw error;

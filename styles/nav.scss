@@ -42,6 +42,19 @@ nav#nav-bar{
     outline: none;
     box-shadow: none;
   }
+
+  form {
+      float: right;
+      height: 50px;
+      width: fit-content;
+      color: $seashell;
+      background-color: $winedregs;
+      margin-left: 20px;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+
 }
 
 nav#nav-bar button:hover {

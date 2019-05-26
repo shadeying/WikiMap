@@ -8,7 +8,7 @@ $(document).ready(function() {
   });
 
   $( "#login-button" ).click(function(){
-    $.get("/current", function(userid){
+    $.get("/api/users/current", function(userid){
       if(userid){
         $.post("/logout");
       }
@@ -19,20 +19,25 @@ $(document).ready(function() {
     });
   });
 
-  $( "#create-button" ).click(function(){
-    $.post("/new", function(data){
-      $.get(`/${data.mapid}`);
+  $( "#create-button" ).submit(function(){
+    $.get( "/api/users/current", function(userid){
+      if(userid){
+        $.post("/new");
+      }else{
+        $.get("/", function(data){
+        window.location.href = this.url;
+        $("body").html(data);
+      });
+      }
     });
   });
 
   $( "#user-button" ).click(function(){
-    $.get("/current", function(userid){
-      // if(userid){
+    $.get("/api/users/current", function(userid){
         $.get(`/users/${userid}`, function(data){
           window.location.href = this.url;
           $("body").html(data);
         });
-      // }
     });
   });
 

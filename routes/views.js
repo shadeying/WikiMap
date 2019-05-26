@@ -29,17 +29,6 @@ module.exports = (queries, dataHelpers) => {
     res.render('user', {maps, userid, "loginUser":loginUser});
   });
 
-  router.get('/:userid/login', async (req, res) => {
-    console.log('userid: ', req.params.userid);
-    req.session.userid = req.params.userid;
-    console.log('userid session: ', req.session.userid);
-    res.status(200).end('set cookie');
-  });
-
-  router.get('/current', (req, res) => {
-    res.json(req.session.userid);
-  });
-
   router.post('/logout', (req, res) => {
     req.session = null;
     res.redirect('/');
