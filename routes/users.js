@@ -10,7 +10,8 @@ module.exports = (queries, dataHelpers) => {
   });
 
   router.get('/current', (req, res) => {
-    res.json(req.session.userid);
+    if (req.session)
+    res.json(req.session.userid || null);
   })
 
   router.get('/:userid', async (req, res) => {

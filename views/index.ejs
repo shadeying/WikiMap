@@ -20,8 +20,9 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/initmap.js"></script>
 
+    <script type="text/javascript" src="/scripts/mapState.js"></script>
+    <script type="text/javascript" src="/scripts/initmap.js"></script>
     <script type="text/javascript">
       var userid = '<%= userid %>'
       // returns initMap function with mapid in scope to make AJAX request
@@ -64,6 +65,7 @@
       <div class="info">
         <article class="pointlist">
           <header><i class="fa fa-map-pin"></i> Places</header>
+          <button class="info__add-point"></button>
           <div class="locations"></div>
         </article>
       </div>
