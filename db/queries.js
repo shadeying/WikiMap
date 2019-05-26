@@ -52,9 +52,9 @@ module.exports = knex => ({
       .andWhere('userid', userid)
   },
 
-  newMap: maps => (
+  newMap: map => (
     knex('maps')
-      .insert(maps)
+      .insert(map)
   ),
 
   updateMapInfo: (mapid, updates) => (
