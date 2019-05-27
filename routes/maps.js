@@ -22,15 +22,7 @@ module.exports = (queries, dataHelpers) => {
       if(!req.session.userid){
         res.status(400).send('not logged in!');
       }else{
-<<<<<<< HEAD
         await queries.newMap({"ownerid": req.session.userid, "name" :"Enter Map Title", "description": "Enter map description"});
-=======
-        await queries.newMap({
-          ownerid: userid,
-          name: 'New Map',
-          description: 'description'
-        })
->>>>>>> ee3383215c7991a659cd000fd2d76f88b4fef054
         res.redirect('/maps/' + mapid);
         res.send({"url": `/maps/${mapid}`})
       }
