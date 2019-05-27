@@ -16,14 +16,17 @@ module.exports = (queries, dataHelpers) => {
 
   router.post("/new", async (req, res) => {
     try {
+      const { userid } = req.session;
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
-      console.log(req.body);
       if(!req.session.userid){
         res.status(400).send('not logged in!');
       }else{
-        await queries.newMap({"ownerid": req.session.userid, "name" :"New Map"});
-        res.send({"url": `/maps/${mapid}`});
+        await queries.newMap({
+          ownerid: userid,
+          name: 'New Map',
+          description: 'description'
+        })
         res.redirect('/maps/' + mapid);
       }
     } catch (error) {
@@ -38,6 +41,7 @@ module.exports = (queries, dataHelpers) => {
       const { mapInfo, points, } = req.body;
       console.log('data: ', req.body);
       await dataHelpers.updatePoints(points, mapid);
+      await queries.updateMapInfo(mapid, mapInfo);
       res.json(await dataHelpers.getMapRepr(mapid, queries));
     } catch (err) {
       res.status(400).send('oh noes')
