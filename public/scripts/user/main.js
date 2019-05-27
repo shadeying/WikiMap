@@ -6,31 +6,25 @@ $(document).ready(function() {
   });
 
   $( "span.new-map" ).click(function(){
-    $.post("/new", function(data){
-      $("body").html(data);
-          console.log(data);
-          console.log(this);
+    $.get( "/api/users/current", function(userid){
+      if(userid){
+        $.post("/api/maps/new", function(data){
+          window.location.href = data.url;
+          $("body").html(data);
         });
+      }else{
+        $.get("/", function(data){
+          window.location.href = this.url;
+          $("body").html(data);
+        });
+      }
+    });
   });
-  //   $.get("/current", function(userid){
-  //     if(userid){
-  //       $.post("/new", function(data){
-  //         alert(data);
-  //         console.log(this);
-  //       });
-  //     }else{
-  //       $.get("/", function(data){
-  //         window.location.href = this.url;
-  //         $("body").html(data);
-  //       });
-  //     }
-  //   });
-  // });
 
   $( "button.login" ).click(function(){
     const username = $("input[name=userid]").val();
     $.get(`/users/${username}`, function(data){
-        $.get(`/${username}/login`);
+        $.get(`/api/users/${username}/login`);
         window.location.href = this.url;
         $("body").html(data);
       });
