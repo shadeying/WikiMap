@@ -87,10 +87,10 @@ class Point {
               <span class="point__lat" style="display:none;"></span>
               <span class="point_lng"></span>
             </span>
-            <span class="delete-button"><i class="fa fa-trash"></i> Delete :|</span>
+            <span class="delete-button"><i class="fa fa-trash"></i> Delete </span>
           </footer>
         </article>
-      `)
+    `)
     initField(
       pointElement.find('.point__title'),
       this._state.title,
@@ -153,22 +153,23 @@ class Point {
 class PointsContainer  {
   constructor(pointsData, map, element) {
     this._map = map;
-    this._points = [];
+    this.points = [];
     this._element = element;
     this._removePoint = this._removePoint.bind(this);
-    this._addPoint = this._addPoint.bind(this);
-    pointsData.forEach(this._addPoint);
+    this.addPoint = this.addPoint.bind(this);
+    pointsData.forEach(this.addPoint);
   }
 
-  _addPoint (data) {
+  addPoint (data) {
     const point = new Point(this._map, this._removePoint, data || {});
     console.log('pushing to _points')
     this._element.append(point.element);
-    this._points.push(point);
+    this.points.push(point);
+    return point;
   }
 
   _removePoint(index) {
-    this._points.splice(index, 1);
+    this.points.splice(index, 1);
   }
 
 }
@@ -176,7 +177,7 @@ class PointsContainer  {
 const initPoints  = (pointsData, map, containerElement) => {
   console.log('running initPoints')
 
-  const points = new PointsContainer(pointsData, map, containerElement)
+  const pointsContainer = new PointsContainer(pointsData, map, containerElement)
 
   $('.point header').click(function (event) {
     console.log('clicked header');
@@ -186,17 +187,16 @@ const initPoints  = (pointsData, map, containerElement) => {
 
   $('.info__add-point').click((event) => {
     console.log('adding point')
-    const point = newPoint()
+    const point = pointsContainer.addPoint()
     const listenerHandle = map.addListener('click', (event) => {
       const {lat, lng} = event.latLng
       point.updatePosition({lat: lat(), lng: lng()})
       google.maps.event.removeListener(listenerHandle);
     });
-    points.push(point);
   })
 
 
-  return () => points.map(point => point.getData());
+  return () => pointsContainer.points.map(point => point.getData());
 }
 
 const initFavoriteBtn = (userid, mapid, userFavorites) => {
@@ -227,7 +227,7 @@ const initMapState = (mapObject, map, mapid, userid) => {
 
   initFavoriteBtn(userid, mapid, userFavorites);
 
-  // initField(titleElement, mapInfo.name, text => mapInfo.name = text);
+  initField(titleElement, mapInfo.name, text => mapInfo.name = text);
 
   initField(
     $("p.mapdescription"),
