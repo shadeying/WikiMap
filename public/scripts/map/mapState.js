@@ -6,12 +6,12 @@ const initField = (field, startValue, cb) => {
 }
 
 const emptyPointData = {
-  title: 'title',
-  description: 'description',
-  image: 'image_url',
-  editorid: 'alice',
+  title: 'Enter title',
+  description: 'Enter description',
+  image: 'Enter image url',
+  editorid: 'Alice',
   lat: 0,
-  lng: 0,
+  lng: 0
 }
 
 class Point {
@@ -42,16 +42,19 @@ class Point {
   }
 
   _createInfoWindowMarkup() {
-    const { title, image } = this._state;
+    const { title, description, image } = this._state;
     const contentElement =  $(`
-      <article><h1 class="title"></h1>
+      <div><article class="info-window">
+        <h1 class="title"></h1>
         <p class="description"></p>
         <img class="image">
-      </article>
+      </article></div>
     `)
     contentElement
       .addClass('point')
       .find('.title').text(title);
+    contentElement
+      .find('.description').text(description);
     contentElement
       .find('.image').attr('src', image);
     return contentElement.html();
@@ -76,20 +79,21 @@ class Point {
   }
   _makePointElement() {
     const pointElement = $( `
-        <article class="point hvr-grow">
-          <header>
-            <label class="point__title"></label>
-            <img/>
-          </header>
-          <footer class="point-footer" style="display:none;">
-            <span class="point__description"></span>
-            <span class="point__img-url"></span>
-            <span class="point__location">
-              <span class="point__lat" style="display:none;"></span>
-              <span class="point_lng"></span>
-            </span>
-            <span class="delete-button"><i class="fa fa-trash"></i> Delete </span>
-          </footer>
+      <article class="point-container hvr-grow">
+        <header>
+          <label class="point__title"></label>
+        </header>
+        <footer class="point-footer" style="display:none;">
+          <div class="content__title">Description</div>
+          <span class="point__description"></span>
+          <div class="content__title">Image URL</div>
+          <span class="image__url"></span>
+          <span class="point__location">
+            <span class="point__lat" style="display:none;"></span>
+            <span class="point_lng"></span>
+          </span>
+          <span class="delete-button"><i class="fa fa-trash"></i> Delete</span>
+        </footer>
         </article>
     `)
     initField(
@@ -109,7 +113,7 @@ class Point {
     );
 
     initField(
-      pointElement.find('.point__img-url'),
+      pointElement.find('.image__url'),
       this._state.image,
       text => {
         this._state.image = text;
@@ -261,3 +265,7 @@ const initMapState = (mapObject, map, mapid, userid) => {
     });
   })
 }
+
+$(document).on( "click", "article.point-container.hvr-grow" , function(event) {
+    $(this).find( "footer" ).slideDown();
+});
