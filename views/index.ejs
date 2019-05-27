@@ -24,9 +24,10 @@
     <script type="text/javascript" src="/scripts/mapState.js"></script>
     <script type="text/javascript" src="/scripts/initmap.js"></script>
     <script type="text/javascript">
-      var userid = '<%= userid %>'
+      var userid = Number('<%= userid %>');
+      var mapid  = Number('<%= mapid %>');
       // returns initMap function with mapid in scope to make AJAX request
-      var initMap = initMapFactory(Number( <%= mapid %>));
+      var initMap = initMapFactory(mapid, userid);
     </script>
     <script type="text/javascript" src="/scripts/edit.js"></script>
     <script type="text/javascript" src="/scripts/nav.js"></script>
@@ -42,7 +43,7 @@
       <article class="map-info">
           <header class="map-title">
             <span class="maptitle"></span>
-            <form method="POST" action="/api/maps/<%= mapid %>/fav/"><button type="submit" class="fav-button"><i class="fa fa-star"></i></button></form>
+            <button type="button" class="fav-button"><i class="fa fa-star"></i></button>
           </header>
           <p class="mapdescription"></p>
       </article>

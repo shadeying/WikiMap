@@ -50,19 +50,30 @@ module.exports = (queries, dataHelpers) => {
       mapid: req.params.mapid,
       userid: req.session.userid,
     }
-
-    console.log('session: ', req.session);
-    console.log('favorite: ', favorite)
-    const [existingFavorite] = await queries.getFavorite(favorite);
-    console.log('existingFavorite: ', existingFavorite)
-    if (existingFavorite) {
-      res.status(400).send('favorite already exists')
-      return;
+    try {
+      await queries.addFavorite(favorite)
+      res.status(200).send('w00t');
+    } catch (err) {
+      res.status(400).send('oh no');
+      throw err;
     }
-    await queries.addFavorite(favorite)
-    const userFavorites = await queries.getMapFavoriteUsers(favorite.mapid)
-    console.log('adding')
-    res.status(200).json(userFavorites);
+  })
+
+  router.post('/:mapid/toggleFavorite', async (req, res) => {
+    const favorite = {
+      mapid: Number(req.params.mapid),
+      userid: req.session.userid,
+    }
+
+    const [existingFavorite] = await queries.getFavorite(favorite);
+    console.log('existing: ', existingFavorite);
+    if (existingFavorite) {
+      await queries.deleteFavorite(existingFavorite.id);
+      res.json(false)
+    } else {
+      await queries.addFavorite(favorite)
+      res.json(true)
+    }
   })
 
   router.delete('/:mapid/deleteFavorite', async (req, res) => {

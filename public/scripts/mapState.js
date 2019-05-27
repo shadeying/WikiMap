@@ -1,4 +1,5 @@
 const initField = (field, startValue, cb) => {
+  field.text(startValue);
   field
     .attr('contenteditable', true)
     .on('keyup change paste', () => {cb(field.text())});
@@ -48,7 +49,6 @@ class Point {
 
   _addInfoWindow() {
     const markup = this._createInfoWindowMarkup();
-    console.log(markup);
     return new google.maps.InfoWindow({
       content: markup,
     })
@@ -103,7 +103,6 @@ class Point {
       });
 
 
-    console.log('pointElement: ', pointElement[0]);
     return pointElement;
   }
 
@@ -156,14 +155,35 @@ const initPoints  = (pointsData, map, pointsContainer) => {
   return () => points.map(point => point.getData());
 }
 
-const initMapState = (mapObject, map, mapid) => {
+const initFavoriteBtn = (userid, mapid, userFavorites) => {
+  const button = $('.fav-button')
+
+  button.click(() => {
+    $.ajax({
+      method: 'POST',
+      url: `/api/maps/${mapid}/toggleFavorite`,
+      success: (outcome) => {
+        if (outcome) {
+          console.log('faved!')
+          button.addClass('favorited')
+        } else {
+          button.removeClass('favorited')
+          console.log('deleted fave!')
+        }
+      },
+    });
+  })
+}
+
+const initMapState = (mapObject, map, mapid, userid) => {
 
   const { mapInfo, points: pointsData, userFavorites} = mapObject;
   const titleElement = $("span.maptitle")
   console.log('title', mapInfo.name);
 
+  initFavoriteBtn(userid, mapid, userFavorites);
 
-  initField(titleElement, mapInfo.name, text => mapInfo.name = text);
+  // initField(titleElement, mapInfo.name, text => mapInfo.name = text);
 
   initField(
     $("p.mapdescription"),

@@ -1,5 +1,5 @@
 console.log('initMap is read')
-const initMapFactory = function (mapid) {
+const initMapFactory = function (mapid, userid) {
   const initMap = () => {
     console.log('init!');
     // Create a new StyledMapType object, passing it an array of styles,
@@ -194,11 +194,11 @@ const initMapFactory = function (mapid) {
     map.setMapTypeId('styled_map');
 
     const mapObject = {
-      "mapInfo": {
-        "mapid": 1,
-        "ownerid": "alice",
-        "name": "I am a title",
-        "description": "this is map a"
+      mapInfo: {
+        mapid: 1,
+        ownerid: "alice",
+        name: "I am a title",
+        description: "this is map a"
       },
       "points": [{
           "id": 29,
@@ -226,7 +226,7 @@ const initMapFactory = function (mapid) {
     }
 
     $.get(`/api/maps/${mapid}`)
-      .done(data => initMapState(data, map, mapid))
+      .done(data => initMapState(data, map, mapid, userid))
       .fail(() => alert('request error'));
 
 
