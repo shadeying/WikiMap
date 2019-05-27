@@ -5,7 +5,9 @@ const path = require('path');
 
 module.exports = (queries, dataHelpers) => {
   router.get('/', async (req, res) => {
-    res.json(await queries.getMaps());
+    const maps = await dataHelpers.getMapsAndFavorites();
+    console.log('outer maps', maps);
+    res.json(maps);
   })
 
   router.get("/:mapid", async (req, res) => {

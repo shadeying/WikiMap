@@ -1,5 +1,4 @@
-const initField = (field, startValue, cb, usesVal=false) => {
-  usesVal ? field.val(startValue) : field.text(startValue)
+const initField = (field, startValue, cb) => {
   field
     .attr('contenteditable', true)
     .on('keyup change paste', () => {cb(field.text())});
@@ -17,12 +16,13 @@ const emptyPointData = {
 class Point {
   constructor(map, data={}) {
     this._state = {...emptyPointData, ...data};
+    this._map = map;
     this._editable = false;
     this.element = this._makePointElement();
-    this._marker = this._makePointMarker(map);
+    this.marker = this._makePointMarker();
     this._infoWindow = this._addInfoWindow();
-    this._updatePosition = this.updatePosition.bind(this);
-    this._addMarkerHandlers(map);
+    this.updatePosition = this.updatePosition.bind(this);
+    this._addMarkerHandlers();
   }
 
   getData() {
@@ -58,7 +58,7 @@ class Point {
     const { lat, lng } = newPosition;
     this._state.lat = lat || this._state.lat
     this._state.lng = lng || this._state.lng
-    this._marker.setPosition(newPosition);
+    this.marker.setPosition(newPosition);
   }
 
   _updateInfoWindowContent() {
@@ -88,7 +88,7 @@ class Point {
           this._state.lat,
           text => {
             const lat = Number(text)
-            this._updatePosition({ lat })
+            this.updatePosition({ lat })
           },
         );
         initField(
@@ -107,20 +107,20 @@ class Point {
     return pointElement;
   }
 
-  _makePointMarker(map) {
+  _makePointMarker() {
     const { lat, lng, title } = this._state;
     const position = { lat, lng };
     return new google.maps.Marker({
       position,
-      map,
+      map: this._map,
       title,
     })
   }
 
-  _addMarkerHandlers(map) {
-    const marker = this._marker;
+  _addMarkerHandlers() {
+    const marker = this.marker;
     marker.addListener('mouseover', (event) => {
-      this._infoWindow.open(map, marker);
+      this._infoWindow.open(this._map, marker);
     });
     marker.addListener('mouseout', event => {
       this._infoWindow.close()

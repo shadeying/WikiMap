@@ -26,7 +26,6 @@ module.exports = knex => ({
 
   getMapInfo: mapid => (
     knex('maps')
-      .select()
       .where('mapid', mapid)
   ),
 

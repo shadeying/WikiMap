@@ -11,6 +11,23 @@ module.exports = (queries) => ({
     edited: await queries.getEditedMaps(userid)
   }),
 
+  getMapsAndFavorites: async () => {
+    console.log('this: ', this);
+    const maps = await queries.getMaps();
+    console.log('maps innner: ', maps);
+    const withFavorites = Promise.all(maps.map( async (map) => {
+      const userFavorites  = await queries.getMapFavoriteUsers(map.mapid);
+      console.log('favorites: ', userFavorites);
+      console.log('map: ', map)
+      return {
+        ...map,
+        userFavorites: userFavorites.map(favorite => favorite.userid),
+      };
+    }));
+    console.log('withFavorites: ', withFavorites);
+    return withFavorites;
+  },
+
   updatePoints: async (points, mapid) => {
     const newPoints = [];
     const oldPoints = [];
