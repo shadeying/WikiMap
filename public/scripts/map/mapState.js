@@ -83,6 +83,7 @@ class Point {
           </header>
           <footer class="point-footer" style="display:none;">
             <span class="point__description"></span>
+            <span class="point__img-url"></span>
             <span class="point__location">
               <span class="point__lat" style="display:none;"></span>
               <span class="point_lng"></span>
@@ -97,6 +98,7 @@ class Point {
       text => {
         this._state.title = text
         this._updateInfoWindowContent()
+        this._state.editorid = userid;
       },
     );
 
@@ -105,6 +107,15 @@ class Point {
       this._state.description,
       text => this._state.description = text,
     );
+
+    initField(
+      pointElement.find('.point__img-url'),
+      this._state.image,
+      text => {
+        this._state.image = text;
+        this._updateInfoWindowContent();
+      },
+    )
 
     initField(
       pointElement.find('.point__lat'),

@@ -7,19 +7,19 @@ exports.seed = function(knex, Promise) {
         {
           mapid: '1',
           name: 'Food!',
-          ownerid: 'Alice',
+          ownerid: 'alice',
           description: 'Just in case I missed any nice FOOD :|'
         },
         {
           mapid: '2',
           name: 'Beaches',
-          ownerid: 'Bob',
+          ownerid: 'bob',
           description: 'Beaches my HOME'
         },
         {
           mapid: '3',
           name: 'Map :|',
-          ownerid: 'Charlie',
+          ownerid: 'charlie',
           description: `It's Charlie's Map`
         }
       ])

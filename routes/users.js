@@ -18,7 +18,8 @@ module.exports = (queries, dataHelpers) => {
     const  { userid  } = req.params;
     try {
       console.log('userid: ', userid);
-      res.json(await dataHelpers.getMapsForUsersPage(userid))
+      const maps = await dataHelpers.getMapsForUsersPage(userid)
+      res.json(maps)
     } catch (err) {
       res.status(400).send('something went wrong!')
       throw err

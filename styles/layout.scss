@@ -192,3 +192,9 @@ button.info__add-point:hover {
 article.pointlist i.fa.fa-map-pin:hover {
   color: $tulip;
 }
+
+.point__img-url {
+  overflow: hidden;
+  height: 1.3em;
+  font-size: small;
+}
