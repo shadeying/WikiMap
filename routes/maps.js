@@ -37,7 +37,7 @@ module.exports = (queries, dataHelpers) => {
       const { mapid } = req.params
       const { mapInfo, points, } = req.body;
       console.log('data: ', req.body);
-      await dataHelpers.updatePoints(points, mapid);
+      await dataHelpers.updatePoints(points || [], mapid);
       await queries.updateMapInfo(mapid, mapInfo);
       res.json(await dataHelpers.getMapRepr(mapid, queries));
     } catch (err) {
@@ -55,7 +55,7 @@ module.exports = (queries, dataHelpers) => {
       await queries.addFavorite(favorite)
       res.status(200).send('w00t');
     } catch (err) {
-      res.status(400).send('oh no');
+      res.status(400).send('addFavorite broke?');
       throw err;
     }
   })

@@ -126,10 +126,13 @@ body {
       height: -webkit-fill-available;
       text-align: center;
 
+      article.description {
+        @extend %article;
+
         header {
           @extend %header;
         }
-
+      }
 
       article.pointlist {
         @extend %article;
@@ -152,7 +155,7 @@ body {
           display: flex;
           flex-direction: column;
 
-          article.point-container.hvr-grow {
+          article {
             @extend %point;
 
             header {
@@ -163,19 +166,12 @@ body {
               margin-left: 4px;
             }
 
-            footer.point-footer {
+            footer {
               border-radius: 10px;
               background-color: $coralblack;
               display: flex;
               flex-direction: column;
               padding: 5px;
-
-              div.content__title {
-                margin: 10px;
-                border-radius: 5px;
-                background-color: $mayablue;
-                color: $smokyblack;
-              }
             }
           }
         }
