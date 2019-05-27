@@ -21,16 +21,17 @@
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 
-    <script type="text/javascript" src="/scripts/mapState.js"></script>
-    <script type="text/javascript" src="/scripts/initmap.js"></script>
+    <script type="text/javascript" src="/scripts/map/mapState.js"></script>
+    <script type="text/javascript" src="/scripts/map/initmap.js"></script>
     <script type="text/javascript">
       var userid = Number('<%= userid %>');
       var mapid  = Number('<%= mapid %>');
       // returns initMap function with mapid in scope to make AJAX request
       var initMap = initMapFactory(mapid, userid);
     </script>
-    <script type="text/javascript" src="/scripts/edit.js"></script>
-    <script type="text/javascript" src="/scripts/nav.js"></script>
+
+    <script defer type="text/javascript" src="/scripts/map/animate.js"></script>
+    <script defer type="text/javascript" src="/scripts/nav.js"></script>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmV2d1UF5pCRkcGjW68hCKYmIXjktEX7w&callback=initMap">

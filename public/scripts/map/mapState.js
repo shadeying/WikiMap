@@ -15,7 +15,7 @@ const emptyPointData = {
 }
 
 class Point {
-  constructor(map, data={}) {
+  constructor(map, removeHandler, data={}) {
     this._state = {...emptyPointData, ...data};
     this._map = map;
     this._editable = false;
@@ -24,15 +24,25 @@ class Point {
     this._infoWindow = this._addInfoWindow();
     this.updatePosition = this.updatePosition.bind(this);
     this._addMarkerHandlers();
+    this._addRemoveHandler(removeHandler);
+  }
+
+  _addRemoveHandler (handler) {
+    this.element
+      .find('.delete-button')
+      .click(() => {
+        this.element.remove();
+        this.marker.setMap(null);
+        handler();
+      })
   }
 
   getData() {
-    return {... this._state};
+    return { ...this._state };
   }
 
-
   _createInfoWindowMarkup() {
-    const {title, image} = this._state;
+    const { title, image } = this._state;
     const contentElement =  $(`
       <article><h1 class="title"></h1>
         <p class="description"></p>
@@ -64,44 +74,56 @@ class Point {
   _updateInfoWindowContent() {
     this._infoWindow.setContent(this._createInfoWindowMarkup());
   }
-
   _makePointElement() {
-    const pointElement = $(`<article class="point-container hvr-grow">`)
-    pointElement
-      .load('/content/point-template.html', () => {
-        console.log(this._state.title)
-        initField(
-          pointElement.find('.point__title'),
-          this._state.title,
-          text => {
-            this._state.title = text
-            this._updateInfoWindowContent()
-          },
-        );
-        initField(
-          pointElement.find('.point__description'),
-          this._state.description,
-          text => this._state.description = text,
-        );
-        initField(
-          pointElement.find('.point__lat'),
-          this._state.lat,
-          text => {
-            const lat = Number(text)
-            this.updatePosition({ lat })
-          },
-        );
-        initField(
-          pointElement.find('.point__lng'),
-          this._state.lng,
-          text => {
-            const lng = Number(text)
-            this.updatePosition({ lng });
-          },
-          true,
-        );
-      });
+    const pointElement = $( `
+        <article class="point hvr-grow">
+          <header>
+            <label class="point__title"></label>
+            <img/>
+          </header>
+          <footer class="point-footer" style="display:none;">
+            <span class="point__description"></span>
+            <span class="point__location">
+              <span class="point__lat" style="display:none;"></span>
+              <span class="point_lng"></span>
+            </span>
+            <span class="delete-button"><i class="fa fa-trash"></i> Delete :|</span>
+          </footer>
+        </article>
+      `)
+    initField(
+      pointElement.find('.point__title'),
+      this._state.title,
+      text => {
+        this._state.title = text
+        this._updateInfoWindowContent()
+      },
+    );
 
+    initField(
+      pointElement.find('.point__description'),
+      this._state.description,
+      text => this._state.description = text,
+    );
+
+    initField(
+      pointElement.find('.point__lat'),
+      this._state.lat,
+      text => {
+        const lat = Number(text)
+        this.updatePosition({ lat })
+      },
+    );
+
+    initField(
+      pointElement.find('.point__lng'),
+      this._state.lng,
+      text => {
+        const lng = Number(text)
+        this.updatePosition({ lng });
+      },
+      true,
+    );
 
     return pointElement;
   }
@@ -128,16 +150,38 @@ class Point {
   }
 }
 
-const initPoints  = (pointsData, map, pointsContainer) => {
-
-  console.log('running initPoints')
-  const newPoint = (data) => {
-    const point = new Point(map, data || {});
-    pointsContainer.append(point.element);
-    return point;
+class PointsContainer  {
+  constructor(pointsData, map, element) {
+    this._map = map;
+    this._points = [];
+    this._element = element;
+    this._removePoint = this._removePoint.bind(this);
+    this._addPoint = this._addPoint.bind(this);
+    pointsData.forEach(this._addPoint);
   }
 
-  const points =  pointsData.map(newPoint);
+  _addPoint (data) {
+    const point = new Point(this._map, this._removePoint, data || {});
+    console.log('pushing to _points')
+    this._element.append(point.element);
+    this._points.push(point);
+  }
+
+  _removePoint(index) {
+    this._points.splice(index, 1);
+  }
+
+}
+
+const initPoints  = (pointsData, map, containerElement) => {
+  console.log('running initPoints')
+
+  const points = new PointsContainer(pointsData, map, containerElement)
+
+  $('.point header').click(function (event) {
+    console.log('clicked header');
+    $(this).parent().find('footer').slideToggle();
+  })
 
 
   $('.info__add-point').click((event) => {
@@ -206,11 +250,3 @@ const initMapState = (mapObject, map, mapid, userid) => {
     });
   })
 }
-
-$(document).on( "click", "article.point-container.hvr-grow" , function(event) {
-    $(this).find( "footer" ).slideDown();
-});
-
-$(document).on( "click", ".delete-button", function(event) {
-  $(this).parents("article.point-container").remove();
-});
