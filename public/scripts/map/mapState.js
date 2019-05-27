@@ -251,13 +251,15 @@ const initMapState = (mapObject, map, mapid, userid) => {
   $('.button__save').click(function (event) {
     event.preventDefault()
     console.log('clicked save button')
-    const data = { mapInfo, points: getPointsData() }
+    const pointsData = getPointsData();
+    console.log('pointsdata: ', pointsData)
+    const data = { mapInfo, points: pointsData }
     console.log('data', data);
     $.ajax({
       method: 'PUT',
       url: `/api/maps/${mapid}/save`,
       data,
-      error: (err) => alert('oh no'),
+      error: (err) => console.log('problem with save'),
     });
   })
 }
