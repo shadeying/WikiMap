@@ -67,7 +67,11 @@ module.exports = knex => ({
     knex('points')
       .where('id', id)
       .update(updates)
+  ),
 
+  addPoints: (pointArr) => (
+    knex('points')
+      .insert(pointArr)
   ),
 
   deletePointsNotIncluded: (ids, mapid) => (

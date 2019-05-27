@@ -8,7 +8,8 @@ const initField = (field, startValue, cb, usesVal=false) => {
 const emptyPointData = {
   title: 'title',
   description: 'description',
-  image: 'url',
+  image: 'image_url',
+  editorid: 'alice',
   lat: 0,
   lng: 0,
 }
@@ -130,13 +131,15 @@ class Point {
 
 const initPoints  = (pointsData, map, pointsContainer) => {
 
-
   console.log('running initPoints')
   const newPoint = (data) => {
     const point = new Point(map, data || {});
     pointsContainer.append(point.element);
     return point;
   }
+
+  const points =  pointsData.map(newPoint);
+
 
   $('.info__add-point').click((event) => {
     console.log('adding point')
@@ -145,11 +148,10 @@ const initPoints  = (pointsData, map, pointsContainer) => {
       const {lat, lng} = event.latLng
       point.updatePosition({lat: lat(), lng: lng()})
       google.maps.event.removeListener(listenerHandle);
-    }
-    )
+    });
+    points.push(point);
   })
 
-  const points =  pointsData.map(newPoint);
 
   return () => points.map(point => point.getData());
 }
@@ -159,6 +161,7 @@ const initMapState = (mapObject, map, mapid) => {
   const { mapInfo, points: pointsData, userFavorites} = mapObject;
   const titleElement = $("span.maptitle")
   console.log('title', mapInfo.name);
+
 
   initField(titleElement, mapInfo.name, text => mapInfo.name = text);
 

@@ -33,18 +33,8 @@ module.exports = (queries, dataHelpers) => {
     try {
       const { mapid } = req.params
       const { mapInfo, points, } = req.body;
-
-      console.log('data: ', req.body)
-
-      await queries.updateMapInfo(mapid, mapInfo)
-      {
-        const pointids = points.map((point) => point.id)
-        await queries.deletePointsNotIncluded(pointids, mapid)
-      }
-
-      await points.forEach(async (point) => {
-        await queries.updatePointInfo(point.id, point)
-      })
+      console.log('data: ', req.body);
+      await dataHelpers.updatePoints(points, mapid);
       res.json(await dataHelpers.getMapRepr(mapid, queries));
     } catch (err) {
       res.status(400).send('oh noes')
