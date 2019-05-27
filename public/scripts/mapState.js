@@ -31,9 +31,9 @@ class Point {
 
 
   _createInfoWindowMarkup() {
-    const {title, image} = this._state;
+    const {title, image, description} = this._state;
     const contentElement =  $(`
-      <article class='info-window'><h1 class="title"></h1>
+      <article class="info-window"><h1 class="title"></h1>
         <p class="description"></p>
         <img class="image">
       </article>
@@ -41,6 +41,8 @@ class Point {
     contentElement
       .addClass('point')
       .find('.title').text(title);
+    contentElement
+      .find('.description').text(description);
     contentElement
       .find('.image').attr('src', image);
     return contentElement.html();
@@ -51,6 +53,7 @@ class Point {
     console.log(markup);
     return new google.maps.InfoWindow({
       content: markup,
+      maxWidth: 300
     })
   }
 

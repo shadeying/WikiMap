@@ -47,7 +47,6 @@ body {
     font-weight: bold;
 
     header {
-      color: #D5FFF3;
       font-size: 5.5vw;
       margin: 0.5em;
     }
@@ -140,11 +139,11 @@ span:hover {
   opacity: 1;
 }
 
-button:hover {
+button.login.hvr-grow:hover {
   cursor: pointer;
 }
 
-form.all.map-card {
+div form.all.map-card {
   width: 100%;
   margin-top: -82px;
 }

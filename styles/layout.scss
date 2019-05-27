@@ -5,6 +5,7 @@ $pink: #9D6381;
 $grey: #CECCCC;
 $coralblack: #5D576B;
 $mayablue: #6CD4FF;
+$tulip: #FE938C;
 
 %article {
   margin: 10px;
@@ -189,5 +190,5 @@ button.info__add-point:hover {
 }
 
 article.pointlist i.fa.fa-map-pin:hover {
-  color: $mayablue;
+  color: $tulip;
 }

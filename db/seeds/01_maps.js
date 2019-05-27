@@ -6,21 +6,21 @@ exports.seed = function(knex, Promise) {
       return knex('maps').insert([
         {
           mapid: '1',
-          name: 'a',
-          ownerid: 'alice',
-          description: 'this is map a'
+          name: 'Food!',
+          ownerid: 'Alice',
+          description: 'Just in case I missed any nice FOOD :|'
         },
         {
           mapid: '2',
-          name: 'b',
-          ownerid: 'bob',
-          description: 'this is map b'
+          name: 'Beaches',
+          ownerid: 'Bob',
+          description: 'Beaches my HOME'
         },
         {
           mapid: '3',
-          name: 'c',
-          ownerid: 'charlie',
-          description: 'this is map c'
+          name: 'Map :|',
+          ownerid: 'Charlie',
+          description: `It's Charlie's Map`
         }
       ])
     });
