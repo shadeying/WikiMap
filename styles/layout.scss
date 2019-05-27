@@ -192,3 +192,10 @@ button.info__add-point:hover {
 article.pointlist i.fa.fa-map-pin:hover {
   color: $tulip;
 }
+
+footer.point-footer div.content__title {
+  color: $coralblack;
+  background-color: $mayablue;
+  margin: 10px;
+  border-radius: 10px;
+}
