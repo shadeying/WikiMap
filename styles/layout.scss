@@ -4,6 +4,7 @@ $seashell: #FDECEF;
 $pink: #9D6381;
 $grey: #CECCCC;
 $coralblack: #5D576B;
+$mayablue: #6CD4FF;
 
 %article {
   margin: 10px;
@@ -162,10 +163,6 @@ body {
               height: auto;
               margin-bottom: 7px;
               margin-left: 4px;
-
-              // label.point__title {
-              //   height: auto;
-              // }
             }
 
             footer {
@@ -189,4 +186,8 @@ div.title-container article.map-info header.map-title button.fav-button:hover{
 
 button.info__add-point:hover {
   cursor: pointer;
+}
+
+article.pointlist i.fa.fa-map-pin:hover {
+  color: $mayablue;
 }

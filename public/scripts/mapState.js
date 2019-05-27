@@ -33,7 +33,7 @@ class Point {
   _createInfoWindowMarkup() {
     const {title, image} = this._state;
     const contentElement =  $(`
-      <article><h1 class="title"></h1>
+      <article class='info-window'><h1 class="title"></h1>
         <p class="description"></p>
         <img class="image">
       </article>

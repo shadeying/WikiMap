@@ -13,7 +13,7 @@ $red: #E84855;
 }
 
 %div {
-  width: 400px;
+  width: 300px;
   height: 300px;
   border: 2px solid $seashell;
   margin: 20px 30px;
@@ -47,6 +47,7 @@ body {
     font-weight: bold;
 
     header {
+      color: #D5FFF3;
       font-size: 5.5vw;
       margin: 0.5em;
     }
