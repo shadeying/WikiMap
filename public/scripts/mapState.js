@@ -33,10 +33,10 @@ class Point {
   _createInfoWindowMarkup() {
     const {title, image, description} = this._state;
     const contentElement =  $(`
-      <article class="info-window"><h1 class="title"></h1>
+      <div><article class="info-window"><h1 class="title"></h1>
         <p class="description"></p>
         <img class="image">
-      </article>
+      </article></div>
     `)
     contentElement
       .addClass('point')
@@ -122,7 +122,7 @@ class Point {
 
   _addMarkerHandlers(map) {
     const marker = this._marker;
-    marker.addListener('mouseover', (event) => {
+    marker.addListener('click', (event) => {
       this._infoWindow.open(map, marker);
     });
     marker.addListener('mouseout', event => {

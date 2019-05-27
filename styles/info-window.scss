@@ -1,15 +1,10 @@
 article.info-window {
-  height: 300px;
+  width: 200px;
 
   img.image {
-    object-fit: cover;
-  object-position: 100% 0;
-
-  width: 300px;
-  height: 337px;
+    width: 100%;
   }
 }
-
 // <div class="info-window">
         // <h1>Title</h1>
         // <p>hello world<p>
