@@ -85,24 +85,21 @@ section.edit-title input {
   height: 40px;
 }
 
-section.point-container div#delete-button {
-  width: 100%;
+article span.delete-button {
+  width: 80%;
   background-color: $tulip;
   color: white;
-  height: 40px;
+  height: 35px;
   margin-top: 7px;
-  padding-top: 7px;
+  padding-top: 2px;
   border: 2px solid;
   border-radius: 10px;
+  font-size: 20px;
+  margin-left: 10%;
 }
 
-section.point-container div#delete-button:hover {
+article span.delete-button:hover {
   cursor: pointer;
+  background-color: $mayablue;
   color: $coralblack;
-}
-
-button.save:hover {
-  cursor: pointer;
-  background-color: $tulip;
-  color: white;
 }
