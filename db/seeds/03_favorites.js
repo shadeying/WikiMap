@@ -6,19 +6,19 @@ exports.seed = function(knex, Promise) {
       return knex('favorites').insert([
         {
           mapid: '1',
-          userid: 'bob',
+          userid: 'Bob',
         },
         {
           mapid: '2',
-          userid: 'charlie',
+          userid: 'Charlie',
         },
         {
           mapid: '3',
-          userid: 'alice',
+          userid: 'Alice',
         },
         {
           mapid: '1',
-          userid: 'alice',
+          userid: 'Alice',
         }
       ])
     });

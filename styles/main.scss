@@ -13,7 +13,7 @@ $red: #E84855;
 }
 
 %div {
-  width: 400px;
+  width: 300px;
   height: 300px;
   border: 2px solid $seashell;
   margin: 20px 30px;
@@ -139,11 +139,11 @@ span:hover {
   opacity: 1;
 }
 
-button:hover {
+button.login.hvr-grow:hover {
   cursor: pointer;
 }
 
-form.all.map-card {
+div form.all.map-card {
   width: 100%;
   margin-top: -82px;
 }
