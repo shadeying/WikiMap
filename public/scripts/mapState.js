@@ -66,7 +66,7 @@ class Point {
   }
 
   _makePointElement() {
-    const pointElement = $('<article>')
+    const pointElement = $(`<article class="point-container hvr-grow">`)
     pointElement
       .load('/content/point-template.html', () => {
         console.log(this._state.title)
@@ -206,3 +206,11 @@ const initMapState = (mapObject, map, mapid, userid) => {
     });
   })
 }
+
+$(document).on( "click", "article.point-container.hvr-grow" , function(event) {
+    $(this).find( "footer" ).slideDown();
+});
+
+$(document).on( "click", ".delete-button", function(event) {
+  $(this).parents("article.point-container").remove();
+});

@@ -68,6 +68,11 @@ nav#nav-bar span.header:hover {
   cursor: pointer;
 }
 
+nav#nav-bar span.user:hover {
+  cursor: inherit;
+  color: $seashell;
+}
+
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;

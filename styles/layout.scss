@@ -3,6 +3,7 @@ $smokyblack: #0F110C;
 $seashell: #FDECEF;
 $pink: #9D6381;
 $grey: #CECCCC;
+$coralblack: #5D576B;
 
 %article {
   margin: 10px;
@@ -14,8 +15,8 @@ $grey: #CECCCC;
 
 %header {
   height: 60px;
-  background-color: $seashell;
-  color: $winedregs;
+  background-color: $pink;
+  color: $seashell;
   font-size: 250%;
 }
 
@@ -63,7 +64,11 @@ body {
         text-align: center;
         display: flex;
         justify-content: space-around;
-        padding-left: 30%;
+        padding-left: 10%;
+
+        span.maptitle {
+          width: 80%;
+        }
 
         button.fav-button {
           background-color: $seashell;
@@ -74,10 +79,13 @@ body {
         }
       }
 
-      p {
+      p.mapdescription {
         color: $grey;
-        padding-left: 30px;
-        font-size: 140%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        font-size: 2.5vw;
+        width: 80%;
       }
     }
 
@@ -95,12 +103,11 @@ body {
     padding-bottom: 10px;
     margin-right: 20px;
 
-    button#edit-button {
-      font-weight: bold;
+    button.button__save {
       padding: 9px;
       margin: 20px;
-      height: 100px;
-      font-size: 3vw;
+      margin-left: 23%;
+      font-size: 4vw;
       border-radius: 8px;
       border: solid 2px $seashell;
       color: $seashell;
@@ -131,6 +138,14 @@ body {
 
         header {
           @extend %header;
+
+          button.info__add-point {
+            background-color: $pink;
+            color: $seashell;
+            outline: none;
+            box-shadow: none;
+            border: none;
+          }
         }
 
         div.locations {
@@ -138,8 +153,28 @@ body {
           display: flex;
           flex-direction: column;
 
-          div.point {
+          article {
             @extend %point;
+
+            header {
+              font-size: 3vw;
+              width: 100%;
+              height: auto;
+              margin-bottom: 7px;
+              margin-left: 4px;
+
+              // label.point__title {
+              //   height: auto;
+              // }
+            }
+
+            footer {
+              border-radius: 10px;
+              background-color: $coralblack;
+              display: flex;
+              flex-direction: column;
+              padding: 5px;
+            }
           }
         }
       }
@@ -147,7 +182,11 @@ body {
   }
 }
 
-div.title-container article.map-info header.map-title form button.fav-button:hover{
+div.title-container article.map-info header.map-title button.fav-button:hover{
   cursor: pointer;
   color: $pink;
+}
+
+button.info__add-point:hover {
+  cursor: pointer;
 }
