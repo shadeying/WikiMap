@@ -1,5 +1,5 @@
 module.exports = (queries) => ({
-  getMapRepr: async (mapid, queries) => ({
+  getMapRepr: async mapid => ({
     mapInfo: (await queries.getMapInfo(mapid))[0],
     points: await queries.getMapPoints(mapid),
     userFavorites: (await queries.getMapFavoriteUsers(mapid).map(obj => obj.userid)),
