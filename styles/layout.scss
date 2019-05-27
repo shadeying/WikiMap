@@ -3,6 +3,7 @@ $smokyblack: #0F110C;
 $seashell: #FDECEF;
 $pink: #9D6381;
 $grey: #CECCCC;
+$coralblack: #5D576B;
 
 %article {
   margin: 10px;
@@ -140,7 +141,7 @@ body {
 
           button.info__add-point {
             background-color: $pink;
-            color: $smokyblack;
+            color: $seashell;
             outline: none;
             box-shadow: none;
             border: none;
@@ -156,10 +157,23 @@ body {
             @extend %point;
 
             header {
-              font-size: 5vw;
+              font-size: 3vw;
               width: 100%;
+              height: auto;
+              margin-bottom: 7px;
+              margin-left: 4px;
 
+              // label.point__title {
+              //   height: auto;
+              // }
+            }
 
+            footer {
+              border-radius: 10px;
+              background-color: $coralblack;
+              display: flex;
+              flex-direction: column;
+              padding: 5px;
             }
           }
         }
