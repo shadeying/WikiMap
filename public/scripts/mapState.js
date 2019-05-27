@@ -6,10 +6,10 @@ const initField = (field, startValue, cb, usesVal=false) => {
 }
 
 const emptyPointData = {
-  title: 'title',
-  description: 'description',
-  image: 'image_url',
-  editorid: 'alice',
+  title: 'Enter title',
+  description: 'Enter description',
+  image: 'Enter image url',
+  editorid: 'Alice',
   lat: 0,
   lng: 0,
 }
@@ -85,6 +85,11 @@ class Point {
           pointElement.find('.point__description'),
           this._state.description,
           text => this._state.description = text,
+        );
+        initField(
+          pointElement.find('.image__url'),
+          this._state.image,
+          text => this._state.image = text,
         );
         initField(
           pointElement.find('.point__lat'),

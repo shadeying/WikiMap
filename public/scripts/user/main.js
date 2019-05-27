@@ -8,8 +8,11 @@ $(document).ready(function() {
   $( "span.new-map" ).click(function(){
     $.get( "/api/users/current", function(userid){
       if(userid){
-        $.post("/api/maps/new", function(data){
-          window.location.href = data.url;
+        $.post("/api/maps/new", function(data, vars, url){
+          console.log(data)
+          console.log(vars)
+          console.log(url)
+          window.location.href = `/maps/${vars.mapid}`;
           $("body").html(data);
         });
       }else{
