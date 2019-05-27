@@ -5,7 +5,9 @@ const path = require('path');
 
 module.exports = (queries, dataHelpers) => {
   router.get('/', async (req, res) => {
-    res.json(await queries.getMaps());
+    const maps = await dataHelpers.getMapsAndFavorites();
+    console.log('outer maps', maps);
+    res.json(maps);
   })
 
   router.get("/:mapid", async (req, res) => {
@@ -14,13 +16,21 @@ module.exports = (queries, dataHelpers) => {
 
   router.post("/new", async (req, res) => {
     try {
+      const { userid } = req.session;
       const mapid = await queries.getNextMapid();
       console.log('mapid', mapid);
-      console.log(req.body);
       if(!req.session.userid){
         res.status(400).send('not logged in!');
       }else{
+<<<<<<< HEAD
         await queries.newMap({"ownerid": req.session.userid, "name" :"Enter Map Title", "description": "Enter map description"});
+=======
+        await queries.newMap({
+          ownerid: userid,
+          name: 'New Map',
+          description: 'description'
+        })
+>>>>>>> ee3383215c7991a659cd000fd2d76f88b4fef054
         res.redirect('/maps/' + mapid);
         res.send({"url": `/maps/${mapid}`})
       }
@@ -36,6 +46,7 @@ module.exports = (queries, dataHelpers) => {
       const { mapInfo, points, } = req.body;
       console.log('data: ', req.body);
       await dataHelpers.updatePoints(points, mapid);
+      await queries.updateMapInfo(mapid, mapInfo);
       res.json(await dataHelpers.getMapRepr(mapid, queries));
     } catch (err) {
       res.status(400).send('oh noes')
@@ -48,19 +59,30 @@ module.exports = (queries, dataHelpers) => {
       mapid: req.params.mapid,
       userid: req.session.userid,
     }
-
-    console.log('session: ', req.session);
-    console.log('favorite: ', favorite)
-    const [existingFavorite] = await queries.getFavorite(favorite);
-    console.log('existingFavorite: ', existingFavorite)
-    if (existingFavorite) {
-      res.status(400).send('favorite already exists')
-      return;
+    try {
+      await queries.addFavorite(favorite)
+      res.status(200).send('w00t');
+    } catch (err) {
+      res.status(400).send('oh no');
+      throw err;
     }
-    await queries.addFavorite(favorite)
-    const userFavorites = await queries.getMapFavoriteUsers(favorite.mapid)
-    console.log('adding')
-    res.status(200).json(userFavorites);
+  })
+
+  router.post('/:mapid/toggleFavorite', async (req, res) => {
+    const favorite = {
+      mapid: Number(req.params.mapid),
+      userid: req.session.userid,
+    }
+
+    const [existingFavorite] = await queries.getFavorite(favorite);
+    console.log('existing: ', existingFavorite);
+    if (existingFavorite) {
+      await queries.deleteFavorite(existingFavorite.id);
+      res.json(false)
+    } else {
+      await queries.addFavorite(favorite)
+      res.json(true)
+    }
   })
 
   router.delete('/:mapid/deleteFavorite', async (req, res) => {
